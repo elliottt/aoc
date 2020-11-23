@@ -1,0 +1,23 @@
+load("//rules:solution.bzl", "aoc_solution", "aoc_solutions")
+
+aoc_solutions(
+    name = "day-4",
+    solutions = [
+        "part-1",
+        "part-2",
+    ],
+)
+
+cc_binary(
+    name = "part-1",
+    srcs = ["part-1.cc"],
+    deps = ["@range-v3", "@fmt", "@boost//:algorithm", "@boost//:conversion", "@boost//:uuid"],
+    copts = ["-std=c++17"],
+)
+
+cc_binary(
+    name = "part-2",
+    srcs = ["part-2.cc"],
+    deps = ["@range-v3", "@fmt", "@boost//:algorithm", "@boost//:conversion", "@boost//:uuid"],
+    copts = ["-std=c++17"],
+)

@@ -23,3 +23,10 @@ def deps():
         build_file = "//third_party:doctest.BUILD",
         strip_prefix = "doctest-7d42bd0fab6c44010c8aed9338bd02bea5feba41",
     )
+
+    http_archive(
+        name = "com_github_nelhage_rules_boost",
+        urls = ["https://github.com/nelhage/rules_boost/archive/640eb2e2fd6b7bda2187af12b34df1ed01785789.zip"],
+        sha256 = "335847417ad4ddae0831ec0e6e655d3e32915e9dca2af0d89295ebeefd6a9abe",
+        strip_prefix = "rules_boost-640eb2e2fd6b7bda2187af12b34df1ed01785789",
+    )
