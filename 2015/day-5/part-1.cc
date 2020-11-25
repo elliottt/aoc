@@ -1,7 +1,6 @@
 #include <fstream>
 #include <string>
 #include <algorithm>
-#include <vector>
 #include <iterator>
 #include <fmt/core.h>
 #include <range/v3/all.hpp>
@@ -40,13 +39,8 @@ int main(int argc, char **argv) {
         return 1;
     }
 
-    vector<string> input;
-    {
-        ifstream in{argv[1]};
-        copy(istream_iterator<string>{in}, istream_iterator<string>{}, back_inserter(input));
-    }
-
-    fmt::print("part 1: {}\n", ranges::count_if(input, is_nice));
+    ifstream in{argv[1]};
+    fmt::print("part 1: {}\n", ranges::count_if(ranges::istream<string>(in), is_nice));
 
     return 0;
 }
