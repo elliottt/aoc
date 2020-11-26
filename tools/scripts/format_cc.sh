@@ -10,6 +10,7 @@ format_file() {
   if cmp -s "$1" "$formatted"; then
     rm "$formatted"
   else
+    echo "$1"
     mv "$formatted" "$1"
   fi
 }
