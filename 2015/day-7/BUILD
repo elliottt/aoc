@@ -9,10 +9,19 @@ aoc_solutions(
     ],
 )
 
+cc_library(
+    name = "wires",
+    srcs = ["wires.cc", "wires.h"],
+    hdrs = ["wires.h"],
+    deps = ["@range-v3", "@fmt"],
+    copts = COPTS,
+    visibility = ["//visibility:public"],
+)
+
 cc_binary(
     name = "part-1",
     srcs = ["part-1.cc"],
-    deps = ["@range-v3", "@fmt"],
+    deps = ["wires", "@range-v3", "@fmt"],
     copts = COPTS,
     visibility = ["//visibility:public"],
 )
@@ -26,7 +35,7 @@ aoc_solution(
 cc_binary(
     name = "part-2",
     srcs = ["part-2.cc"],
-    deps = ["@range-v3", "@fmt"],
+    deps = ["wires", "@range-v3", "@fmt"],
     copts = COPTS,
     visibility = ["//visibility:public"],
 )
