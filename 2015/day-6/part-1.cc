@@ -1,43 +1,41 @@
 #include <algorithm>
-#include <fstream>
 #include <fmt/core.h>
-#include <iterator>
+#include <fstream>
 #include <ios>
+#include <iterator>
 #include <range/v3/all.hpp>
 #include <regex>
 #include <string>
 
 using namespace std;
 
-pair<int,int> parse_point(string str) {
+pair<int, int> parse_point(string str) {
     auto a = stoi(str);
     auto b = stoi(str.substr(str.rfind(',') + 1));
-    return {a,b};
+    return {a, b};
 }
 
 void interpret(vector<bool> &lights, string line) {
-    vector<string> words =
-        line | ranges::views::tokenize(regex{"[\\w,]+"})
-             | ranges::to<vector<string>>();
+    vector<string> words = line | ranges::views::tokenize(regex{"[\\w,]+"}) |
+                           ranges::to<vector<string>>();
 
     if (words[0] == "toggle") {
-        auto [x1,y1] = parse_point(words[1]);
-        auto [x2,y2] = parse_point(words[3]);
+        auto [x1, y1] = parse_point(words[1]);
+        auto [x2, y2] = parse_point(words[3]);
 
         for (auto y = y1; y <= y2; ++y) {
             auto start = y * 1000;
-            for (auto ix = start+x1; ix <= start + x2; ++ix) {
+            for (auto ix = start + x1; ix <= start + x2; ++ix) {
                 lights[ix] = !lights[ix];
             }
         }
     } else {
         bool to = words[1] == "on";
-        auto [x1,y1] = parse_point(words[2]);
-        auto [x2,y2] = parse_point(words[4]);
+        auto [x1, y1] = parse_point(words[2]);
+        auto [x2, y2] = parse_point(words[4]);
 
         for (auto y = y1; y <= y2; ++y) {
-            auto start = lights.begin() + y * 1000;
-            std::fill(start + x1, start + x2 + 1, to);
+            std::fill_n(lights.begin() + y * 1000 + x1, x2 - x1 + 1, to);
         }
     }
 }
@@ -47,7 +45,7 @@ int main(int argc, char **argv) {
         return 1;
     }
 
-    vector<bool> lights(1000*1000, false);
+    vector<bool> lights(1000 * 1000, false);
 
     string input;
     {

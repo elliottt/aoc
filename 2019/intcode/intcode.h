@@ -31,12 +31,11 @@ public:
     explicit machine(std::vector<int> memory);
 
 private:
-
     std::vector<int> memory;
 
     std::tuple<address, address, address> decode3(int pc);
 };
 
-}
+} // namespace intcode
 
 #endif

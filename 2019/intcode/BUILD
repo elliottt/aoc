@@ -1,8 +1,10 @@
+load("//rules:config.bzl", "COPTS")
+
 cc_library(
     name = "intcode",
     srcs = glob(["*.cc", "*.h"]),
     hdrs = ["intcode.h"],
     deps = ["@fmt"],
-    copts = ["-std=c++17"],
+    copts = COPTS,
     visibility = ["//visibility:public"],
 )

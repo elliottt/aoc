@@ -1,8 +1,8 @@
-#include <fstream>
-#include <fmt/core.h>
-#include <string>
 #include <algorithm>
+#include <fmt/core.h>
+#include <fstream>
 #include <iterator>
+#include <string>
 
 using namespace std;
 
@@ -13,9 +13,14 @@ int first_basement_position(std::string_view directions) {
         ++position;
 
         switch (c) {
-            case '(': ++floor; break;
-            case ')': --floor; break;
-            default: break;
+        case '(':
+            ++floor;
+            break;
+        case ')':
+            --floor;
+            break;
+        default:
+            break;
         }
 
         if (floor < 0) {
@@ -33,7 +38,8 @@ int main(int argc, char **argv) {
     ifstream in{argv[1]};
     std::string out;
 
-    std::copy(istream_iterator<char>{in}, istream_iterator<char>{}, back_inserter(out));
+    std::copy(istream_iterator<char>{in}, istream_iterator<char>{},
+              back_inserter(out));
 
     fmt::print("part 2: {}\n", first_basement_position(out));
 

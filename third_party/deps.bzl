@@ -30,3 +30,10 @@ def deps():
         sha256 = "335847417ad4ddae0831ec0e6e655d3e32915e9dca2af0d89295ebeefd6a9abe",
         strip_prefix = "rules_boost-640eb2e2fd6b7bda2187af12b34df1ed01785789",
     )
+
+    http_archive(
+        name = "com_grail_bazel_compdb",
+        urls = ["https://github.com/grailbio/bazel-compilation-database/archive/0ae6349c52700f060c9a87c5ed2b04b75f94a26f.zip"],
+        sha256 = "40ad122fedbf2d8b23e70e16b5f49c1a316f02db3ed29ce1af8650dad6ccc1a9",
+        strip_prefix = "bazel-compilation-database-0ae6349c52700f060c9a87c5ed2b04b75f94a26f",
+    )

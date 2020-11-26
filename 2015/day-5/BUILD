@@ -1,4 +1,5 @@
 load("//rules:solution.bzl", "aoc_solution", "aoc_solutions")
+load("//rules:config.bzl", "COPTS")
 
 aoc_solutions(
     name = "day-5",
@@ -12,7 +13,8 @@ cc_binary(
     name = "part-1",
     srcs = ["part-1.cc"],
     deps = ["@range-v3", "@fmt"],
-    copts = ["-std=c++17"],
+    copts = COPTS,
+    visibility = ["//visibility:public"],
 )
 
 aoc_solution(
@@ -25,7 +27,8 @@ cc_binary(
     name = "part-2",
     srcs = ["part-2.cc"],
     deps = ["@range-v3", "@fmt"],
-    copts = ["-std=c++17"],
+    copts = COPTS,
+    visibility = ["//visibility:public"],
 )
 
 aoc_solution(

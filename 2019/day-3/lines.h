@@ -10,6 +10,6 @@ struct point {
 
 int distance(const point &a, const point &b) noexcept;
 
-}
+} // namespace aoc
 
 #endif

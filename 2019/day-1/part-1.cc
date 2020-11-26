@@ -12,9 +12,7 @@
 using namespace ranges;
 using namespace std;
 
-int compute_fuel(int mass) {
-    return std::max(0, (mass / 3) - 2);
-}
+int compute_fuel(int mass) { return std::max(0, (mass / 3) - 2); }
 
 int main(int argc, char **argv) {
     if (argc != 2) {
@@ -22,7 +20,8 @@ int main(int argc, char **argv) {
     }
 
     ifstream file{argv[1]};
-    int total_fuel = accumulate(ranges::istream<int>(file) | views::transform(compute_fuel), 0);
+    int total_fuel = accumulate(
+        ranges::istream<int>(file) | views::transform(compute_fuel), 0);
 
     fmt::print("Total fuel required: {}\n", total_fuel);
 
