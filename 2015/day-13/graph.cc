@@ -65,7 +65,8 @@ int graph::max_change() const {
         int change;
         shared_ptr<path> parent;
 
-        path(node::id id, int change, shared_ptr<path> &&parent) : id{id}, change{change}, parent{parent} {}
+        path(node::id id, int change, shared_ptr<path> &&parent)
+            : id{id}, change{change}, parent{parent} {}
 
         bool seen(node::id other) {
             return id == other || (parent && parent->seen(other));
@@ -84,19 +85,16 @@ int graph::max_change() const {
             auto *cursor = this;
             while (cursor->parent != nullptr) {
                 auto next_id = cursor->parent->id;
-                fmt::print(" {} <{}> {} ",
-                        g.nodes[cursor->id].edges[prev_id],
-                        g.nodes[cursor->id].name,
-                        g.nodes[cursor->id].edges[next_id]);
+                fmt::print(" {} <{}> {} ", g.nodes[cursor->id].edges[prev_id],
+                           g.nodes[cursor->id].name,
+                           g.nodes[cursor->id].edges[next_id]);
 
                 prev_id = cursor->id;
                 cursor = cursor->parent.get();
             }
 
-            fmt::print(" {} <{}> {}\n",
-                    g.nodes[cursor->id].edges[prev_id],
-                    g.nodes[cursor->id].name,
-                    g.nodes[cursor->id].edges[id]);
+            fmt::print(" {} <{}> {}\n", g.nodes[cursor->id].edges[prev_id],
+                       g.nodes[cursor->id].name, g.nodes[cursor->id].edges[id]);
         }
     };
 
@@ -122,7 +120,8 @@ int graph::max_change() const {
         work.pop_front();
 
         bool done = true;
-        for (auto oid : views::ints(0, static_cast<int>(nodes[current->id].edges.size()))) {
+        for (auto oid : views::ints(
+                 0, static_cast<int>(nodes[current->id].edges.size()))) {
             if (current->seen(oid)) {
                 continue;
             }

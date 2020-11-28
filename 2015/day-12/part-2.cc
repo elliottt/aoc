@@ -75,9 +75,7 @@ struct counter : nlohmann::json_sax<json> {
 
     vector<object_state> stack{{}};
 
-    int get_total() const {
-        return stack.back().total;
-    }
+    int get_total() const { return stack.back().total; }
 };
 
 int main(int argc, char **argv) {

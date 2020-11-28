@@ -7,10 +7,12 @@ using namespace std;
 string look_and_say(const string &input) {
     using namespace ranges;
 
-    // This is a bit gross: since the string that stores the length of the string would only live for the duration of
-    // the lambda call in `transform`, the data needs to be persisted to allow the concat view to execute. The solution
-    // is to make a string that can be used by the closure as storage space for the temporary string used to store the
-    // length of the sequence. This relies on the range being lazy.
+    // This is a bit gross: since the string that stores the length of the
+    // string would only live for the duration of the lambda call in
+    // `transform`, the data needs to be persisted to allow the concat view to
+    // execute. The solution is to make a string that can be used by the closure
+    // as storage space for the temporary string used to store the length of the
+    // sequence. This relies on the range being lazy.
     string len;
 
     return input | views::group_by(ranges::equal_to{}) |

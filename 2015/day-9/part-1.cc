@@ -1,8 +1,8 @@
-#include <fstream>
 #include <fmt/core.h>
+#include <fstream>
 #include <range/v3/all.hpp>
-#include <vector>
 #include <string>
+#include <vector>
 
 #include "2015/day-9/graph.h"
 

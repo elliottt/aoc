@@ -13,14 +13,14 @@ int count_characters(const string &line) {
     auto i = 1;
     for (; i < line.size() - 2; ++i, ++in_memory) {
         if (line[i] == '\\') {
-            switch(line[i+1]) {
-                case '\\':
-                case '"':
-                    i += 1;
-                    break;
-                case 'x':
-                    i += 3;
-                    break;
+            switch (line[i + 1]) {
+            case '\\':
+            case '"':
+                i += 1;
+                break;
+            case 'x':
+                i += 3;
+                break;
             }
         }
     }
@@ -43,9 +43,10 @@ int main(int argc, char **argv) {
         ranges::copy(ranges::istream<char>(in), ranges::back_inserter(input));
     }
 
-    auto total = ranges::accumulate(
-        input | ranges::views::tokenize(regex{"[^\n]+\n"})
-              | ranges::views::transform(count_characters), 0);
+    auto total =
+        ranges::accumulate(input | ranges::views::tokenize(regex{"[^\n]+\n"}) |
+                               ranges::views::transform(count_characters),
+                           0);
 
     fmt::print("part 1: {}\n", total);
 

@@ -18,7 +18,6 @@ public:
     explicit node(const std::string &name);
 };
 
-
 class graph {
 public:
     std::vector<node> nodes;

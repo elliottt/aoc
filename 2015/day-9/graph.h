@@ -33,7 +33,6 @@ public:
 
     void print() const;
 
-
 private:
     std::vector<node> nodes;
 };

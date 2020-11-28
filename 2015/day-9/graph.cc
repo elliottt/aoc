@@ -118,4 +118,4 @@ void graph::print() const {
     }
 }
 
-}
+} // namespace aoc
