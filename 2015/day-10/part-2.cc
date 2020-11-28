@@ -21,15 +21,13 @@ string look_and_say(const string &input) {
            views::join | ranges::to<string>();
 }
 
-void test(const string str) { fmt::print("{} = {}\n", str, look_and_say(str)); }
-
 int main(int argc, char **argv) {
     string input{"3113322113"};
     for (auto i = 0; i < 50; ++i) {
         input = look_and_say(input);
     }
 
-    fmt::print("{}\n", input.size());
+    fmt::print("part 2: {}\n", input.size());
 
     return 0;
 }
