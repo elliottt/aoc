@@ -24,7 +24,11 @@ public:
     std::vector<node> nodes;
 
     node::id get_node(const std::string &name);
+
+    void add_edge(node::id from, node::id to, int weight);
     void parse_edge(const std::string &line);
+
+    int pair_change(node::id a, node::id b) const;
 
     int max_change() const;
 

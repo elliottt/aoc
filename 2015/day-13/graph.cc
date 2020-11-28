@@ -37,6 +37,10 @@ node::id graph::get_node(const string &name) {
     }
 }
 
+void graph::add_edge(node::id from, node::id to, int weight) {
+    nodes[from].add_edge(to, weight);
+}
+
 void graph::parse_edge(const string &line) {
     auto words = line | views::tokenize(regex{"[\\w]+"}) | to<vector<string>>();
 
@@ -47,7 +51,11 @@ void graph::parse_edge(const string &line) {
 
     auto wix = get_node(who);
     auto oix = get_node(other);
-    nodes[wix].add_edge(oix, sign * amount);
+    add_edge(wix, oix, sign * amount);
+}
+
+int graph::pair_change(node::id a, node::id b) const {
+    return nodes[a].edges[b] + nodes[b].edges[a];
 }
 
 int graph::max_change() const {
@@ -62,20 +70,49 @@ int graph::max_change() const {
         bool seen(node::id other) {
             return id == other || (parent && parent->seen(other));
         }
+
+        path *first() {
+            path *res = this;
+            while (res->parent != nullptr) {
+                res = res->parent.get();
+            }
+            return res;
+        }
+
+        void print(const graph &g) {
+            auto prev_id = first()->id;
+            auto *cursor = this;
+            while (cursor->parent != nullptr) {
+                auto next_id = cursor->parent->id;
+                fmt::print(" {} <{}> {} ",
+                        g.nodes[cursor->id].edges[prev_id],
+                        g.nodes[cursor->id].name,
+                        g.nodes[cursor->id].edges[next_id]);
+
+                prev_id = cursor->id;
+                cursor = cursor->parent.get();
+            }
+
+            fmt::print(" {} <{}> {}\n",
+                    g.nodes[cursor->id].edges[prev_id],
+                    g.nodes[cursor->id].name,
+                    g.nodes[cursor->id].edges[id]);
+        }
     };
 
     deque<shared_ptr<path>> work{};
 
-    auto push_work = [&work](node::id id, int change, shared_ptr<path> parent) {
+    auto push_work = [*this, &work](node::id id, shared_ptr<path> parent) {
+        int change = 0;
         if (parent != nullptr) {
-            change += parent->change;
+            change += parent->change + pair_change(id, parent->id);
         }
         auto ptr = make_shared<path>(id, change, std::move(parent));
         work.emplace_back(std::move(ptr));
     };
 
     for (auto i : views::ints(0, static_cast<int>(nodes.size()))) {
-        push_work(i, 0, nullptr);
+        push_work(i, nullptr);
     }
 
     auto best = INT_MIN;
@@ -85,17 +122,19 @@ int graph::max_change() const {
         work.pop_front();
 
         bool done = true;
-        for (auto const &[oid, weight] : nodes[current->id].edges | views::enumerate) {
+        for (auto oid : views::ints(0, static_cast<int>(nodes[current->id].edges.size()))) {
             if (current->seen(oid)) {
                 continue;
             }
 
             done = false;
-            push_work(oid, weight, current);
+            push_work(oid, current);
         }
 
         if (done) {
-            best = std::max(best, current->change);
+            auto first = current->first()->id;
+            auto change = current->change + pair_change(current->id, first);
+            best = std::max(best, change);
         }
     }
 
