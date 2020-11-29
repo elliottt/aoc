@@ -13,6 +13,8 @@ TARGETS = [
   '//2015/day-14:part-2',
   '//2015/day-15:part-1',
   '//2015/day-15:part-2',
+  '//2015/day-16:part-1',
+  '//2015/day-16:part-2',
   '//2015/day-1:part-1',
   '//2015/day-1:part-2',
   '//2015/day-2:part-1',
