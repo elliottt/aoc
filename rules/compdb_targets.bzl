@@ -15,6 +15,8 @@ TARGETS = [
   '//2015/day-15:part-2',
   '//2015/day-16:part-1',
   '//2015/day-16:part-2',
+  '//2015/day-17:part-1',
+  '//2015/day-17:part-2',
   '//2015/day-1:part-1',
   '//2015/day-1:part-2',
   '//2015/day-2:part-1',
@@ -43,4 +45,6 @@ TARGETS = [
   '//2019/day-3:part-1',
   '//2019/intcode/test:basic-op-tests',
   '//2019/intcode:intcode',
+  '//2020/day-1:part-1',
+  '//2020/day-1:part-2',
 ]
