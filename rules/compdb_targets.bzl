@@ -47,4 +47,6 @@ TARGETS = [
   '//2019/intcode:intcode',
   '//2020/day-1:part-1',
   '//2020/day-1:part-2',
+  '//2020/day-2:part-1',
+  '//2020/day-2:part-2',
 ]
