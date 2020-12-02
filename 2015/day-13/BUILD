@@ -5,8 +5,8 @@ aoc_solutions(
     name = "day-13",
     input = "input.txt",
     solutions = [
-        "solution-part-1",
-        "solution-part-2",
+        "part-1",
+        "part-2",
     ],
 )
 
