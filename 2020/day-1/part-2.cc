@@ -42,7 +42,7 @@ int main(int argc, char **argv) {
 
     if (!solutions.empty()) {
         auto [a, b, c] = solutions[0];
-        fmt::print("part 1: {}\n", a * b * c);
+        fmt::print("part 2: {}\n", a * b * c);
     }
 
     return 0;

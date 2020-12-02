@@ -30,7 +30,7 @@ aoc_solution = rule(
     executable = True,
 )
 
-def _aoc_solutions_impl(ctx):
+def _solution_runner_impl(ctx):
 
     runfiles = ctx.runfiles()
     for solution in ctx.attr.solutions:
@@ -47,10 +47,30 @@ def _aoc_solutions_impl(ctx):
 
     return [DefaultInfo(executable=executable, runfiles=runfiles)]
 
-aoc_solutions = rule(
-    implementation = _aoc_solutions_impl,
+_solution_runner = rule(
+    implementation = _solution_runner_impl,
     attrs = {
         "solutions": attr.label_list()
     },
     executable = True,
 )
+
+def aoc_solutions(name, input=None, solutions=[]):
+    sols=[]
+
+    if input == None:
+        sols=solutions
+    else:
+        for sol in solutions:
+            sol_name = "{}-{}".format(name, sol)
+            aoc_solution(
+                name=sol_name,
+                input=input,
+                binary=sol,
+            )
+            sols.append(sol_name)
+
+    _solution_runner(
+        name=name,
+        solutions=sols,
+    )

@@ -1,12 +1,9 @@
-load("//rules:solution.bzl", "aoc_solution", "aoc_solutions")
+load("//rules:solution.bzl", "aoc_solutions")
 load("//rules:config.bzl", "COPTS")
 
 aoc_solutions(
     name = "day-10",
-    solutions = [
-        "part-1",
-        "part-2",
-    ],
+    solutions = [ "part-1", "part-2" ],
 )
 
 cc_binary(
