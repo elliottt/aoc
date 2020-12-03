@@ -49,4 +49,6 @@ TARGETS = [
   '//2020/day-1:part-2',
   '//2020/day-2:part-1',
   '//2020/day-2:part-2',
+  '//2020/day-3:part-1',
+  '//2020/day-3:part-2',
 ]
