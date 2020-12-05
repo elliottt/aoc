@@ -22,9 +22,8 @@ void extend_passport(passport &p, const string &line) {
 vector<string> required{"byr", "iyr", "eyr", "hgt", "hcl", "ecl", "pid", "cid"};
 
 bool check_passport(const passport &p) {
-    auto missing = ranges::count_if(required, [&p](auto &field) {
-        return p.find(field) == p.end();
-    });
+    auto missing = ranges::count_if(
+        required, [&p](auto &field) { return p.find(field) == p.end(); });
 
     if (missing == 0) {
         return true;
@@ -44,20 +43,14 @@ int main(int argc, char **argv) {
 
     ifstream in{argv[1]};
 
-    passport current;
-    int valid{0};
-
-    for (auto line : views::concat(getlines(in), views::single(""))) {
-        if (line.empty()) {
-            if (check_passport(current)) {
-                valid++;
-            }
-            current.clear();
-            continue;
-        }
-
-        extend_passport(current, line);
-    }
+    int valid = ranges::count_if(
+        getlines(in) | views::split("") | views::transform([](auto rng) {
+            passport p{};
+            ranges::for_each(rng,
+                             [&p](auto line) { extend_passport(p, line); });
+            return p;
+        }),
+        check_passport);
 
     fmt::print("part 1: {}\n", valid);
 

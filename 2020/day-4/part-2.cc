@@ -113,18 +113,14 @@ int main(int argc, char **argv) {
     passport current;
     int valid{0};
 
-    // it would be nice to be able to chunk a range into a range of ranges,
-    // delimited by the empty string here.
-    for (auto line : views::concat(getlines(in), views::single(""))) {
-        if (line.empty()) {
-            if (check_passport(current)) {
-                valid++;
-            }
-            current.clear();
-        } else {
-            extend_passport(current, line);
-        }
-    }
+    valid = ranges::count_if(
+        getlines(in) | views::split("") | views::transform([](auto lines) {
+            passport p{};
+            ranges::for_each(lines,
+                             [&p](auto &line) { extend_passport(p, line); });
+            return p;
+        }),
+        check_passport);
 
     fmt::print("part 2: {}\n", valid);
 
