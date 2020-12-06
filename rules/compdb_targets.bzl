@@ -17,6 +17,9 @@ TARGETS = [
   '//2015/day-16:part-2',
   '//2015/day-17:part-1',
   '//2015/day-17:part-2',
+  '//2015/day-18:life',
+  '//2015/day-18:part-1',
+  '//2015/day-18:part-2',
   '//2015/day-1:part-1',
   '//2015/day-1:part-2',
   '//2015/day-2:part-1',
@@ -55,4 +58,6 @@ TARGETS = [
   '//2020/day-4:part-2',
   '//2020/day-5:part-1',
   '//2020/day-5:part-2',
+  '//2020/day-6:part-1',
+  '//2020/day-6:part-2',
 ]
