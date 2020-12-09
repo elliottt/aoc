@@ -30,7 +30,24 @@ int main() {
     // skipping out on a multiplication by 10
     auto target = 2900000;
 
+    // this finishes pretty quickly, but is unsatisfying. it's really sensitive
+    // to the start value of current, and the jump size.
+    int current = 200000;
+    int jump = 1 << 6;
+    while (true) {
+        if (sigma_1(current) > target) {
+            if (jump == 1) {
+                break;
+            }
 
+            current -= jump * 2;
+            jump >>= 1;
+        }
+
+        current += jump;
+    }
+
+    fmt::print("part 1: {}\n", current);
 
     return 0;
 }
