@@ -30,10 +30,10 @@ int main(int argc, char **argv) {
             ranges::back_inserter(busses));
     }
 
-    auto step = busses.front().first;
+    auto step = 1L;
     auto time = 0L;
 
-    for (auto const &bus : busses | views::drop(1)) {
+    for (auto const &bus : busses) {
         while ((time + bus.second) % bus.first != 0) {
             time += step;
         }
