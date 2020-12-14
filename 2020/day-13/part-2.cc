@@ -7,20 +7,6 @@
 using namespace std;
 using namespace ranges;
 
-template <typename T> T gcd(T a, T b) {
-    if (a < b) {
-        std::swap(a, b);
-    }
-
-    while (b != 0) {
-        auto t = a;
-        a = b;
-        b = t % b;
-    }
-
-    return a;
-}
-
 int main(int argc, char **argv) {
     if (argc != 2) {
         return 1;
