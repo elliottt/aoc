@@ -44,22 +44,18 @@ int main(int argc, char **argv) {
             ranges::back_inserter(busses));
     }
 
-    auto it =
-        ranges::max_element(busses, {}, [](auto const &p) { return p.first; });
-    auto step = it->first;
-    auto init = it->second;
-    for (auto &bus : busses) {
-        bus.second -= init;
-    }
-
+    auto step = busses.front().first;
     auto time = 0L;
-    while (ranges::any_of(busses, [&time](auto &bus) {
-        return (time + bus.second) % bus.first != 0;
-    })) {
-        time += step;
+
+    for (auto const &bus : busses | views::drop(1)) {
+        while ((time + bus.second) % bus.first != 0) {
+            time += step;
+        }
+
+        step *= bus.first;
     }
 
-    fmt::print("part 2: {}\n", time - init);
+    fmt::print("part 2: {}\n", time);
 
     return 0;
 }
