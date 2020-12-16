@@ -3,7 +3,6 @@ load("//rules:config.bzl", "COPTS")
 
 aoc_solutions(
     name = "day-15",
-    input = "input.txt",
     solutions = [ "part-1", "part-2" ],
 )
 
