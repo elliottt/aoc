@@ -3,8 +3,8 @@
 #include <range/v3/all.hpp>
 #include <vector>
 
+using std::ifstream, std::vector, std::tuple;
 using namespace ranges;
-using namespace std;
 
 int main(int argc, char **argv) {
     if (argc != 2) {

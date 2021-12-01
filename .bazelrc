@@ -1,0 +1,2 @@
+build --repo_env=CC=clang
+test --repo_env=CC=clang

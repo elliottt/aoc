@@ -10,10 +10,10 @@ def deps():
 
     http_archive(
         name = "fmt",
-        urls = ["https://github.com/fmtlib/fmt/archive/7.0.3.tar.gz"],
-        sha256 = "b4b51bc16288e2281cddc59c28f0b4f84fed58d016fb038273a09f05f8473297",
+        urls = ["https://github.com/fmtlib/fmt/archive/8.0.1.tar.gz"],
+        sha256 = "b06ca3130158c625848f3fb7418f235155a4d389b2abc3a6245fb01cb0eb1e01",
         build_file = "//third_party:fmt.BUILD",
-        strip_prefix = "fmt-7.0.3",
+        strip_prefix = "fmt-8.0.1",
     )
 
     http_archive(
