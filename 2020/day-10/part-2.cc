@@ -3,7 +3,7 @@
 #include <range/v3/all.hpp>
 #include <string>
 
-using namespace std;
+using std::ifstream, std::string, std::vector;
 using namespace ranges;
 
 // once i realized that the result would be larger than an int i updated

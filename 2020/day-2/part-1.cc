@@ -4,8 +4,8 @@
 #include <string>
 #include <vector>
 
+using std::string, std::ifstream;
 using namespace ranges;
-using namespace std;
 
 struct problem {
     int min;

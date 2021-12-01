@@ -7,8 +7,8 @@
 
 #include "2020/day-8/machine.h"
 
+using std::ifstream, std::vector;
 using namespace ranges;
-using namespace std;
 
 int main(int argc, char **argv) {
     if (argc != 2) {

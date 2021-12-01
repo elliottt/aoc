@@ -4,7 +4,7 @@
 #include <string>
 #include <vector>
 
-using namespace std;
+using std::ifstream, std::string, std::vector, std::pair, std::regex;
 using namespace ranges;
 
 int main(int argc, char **argv) {

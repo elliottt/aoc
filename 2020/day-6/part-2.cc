@@ -4,8 +4,8 @@
 #include <string>
 #include <vector>
 
+using std::ifstream, std::string, std::vector;
 using namespace ranges;
-using namespace std;
 
 int main(int argc, char **argv) {
     if (argc != 2) {
@@ -32,7 +32,8 @@ int main(int argc, char **argv) {
         }),
         0);
 
-    fmt::print("part 1: {}\n", total);
+    // TODO: there's a bug here, this is not outputting the correct answer anymore
+    fmt::print("part 2: {}\n", total);
 
     return 0;
 }

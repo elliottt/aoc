@@ -2,10 +2,9 @@
 #include <fstream>
 #include <range/v3/all.hpp>
 #include <string>
-#include <vector>
 
+using std::ifstream, std::string;
 using namespace ranges;
-using namespace std;
 
 int main(int argc, char **argv) {
     if (argc != 2) {

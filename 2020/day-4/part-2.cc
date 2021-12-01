@@ -8,8 +8,8 @@
 #include <string>
 #include <vector>
 
+using std::ifstream, std::map, std::string, std::vector, std::regex;
 using namespace ranges;
-using namespace std;
 
 using passport = map<string, string>;
 

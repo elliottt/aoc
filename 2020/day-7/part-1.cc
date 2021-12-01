@@ -2,13 +2,12 @@
 #include <fstream>
 #include <range/v3/all.hpp>
 #include <string>
-#include <vector>
 #include <regex>
 #include <deque>
 #include <set>
 
+using std::ifstream, std::map, std::string, std::regex, std::set, std::deque;
 using namespace ranges;
-using namespace std;
 
 int main(int argc, char **argv) {
     if (argc != 2) {

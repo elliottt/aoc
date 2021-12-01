@@ -5,8 +5,8 @@
 #include <string>
 #include <vector>
 
+using std::ifstream, std::string, std::vector, std::regex;
 using namespace ranges;
-using namespace std;
 
 struct rule {
     string name;

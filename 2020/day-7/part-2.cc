@@ -3,10 +3,9 @@
 #include <range/v3/all.hpp>
 #include <regex>
 #include <string>
-#include <vector>
 
+using std::ifstream, std::map, std::string, std::regex;
 using namespace ranges;
-using namespace std;
 
 int nested_bags(const map<string, map<string, int>> &bags, const string &bag) {
     auto &contents = bags.find(bag)->second;

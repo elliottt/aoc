@@ -5,7 +5,7 @@
 #include <string>
 #include <vector>
 
-using namespace std;
+using std::ifstream, std::string, std::vector, std::map;
 using namespace ranges;
 
 int main(int argc, char **argv) {

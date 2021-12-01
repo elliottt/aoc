@@ -4,8 +4,8 @@
 #include <string>
 #include <vector>
 
+using std::ifstream, std::string, std::vector;
 using namespace ranges;
-using namespace std;
 
 int parse_seat_row(const string &str) {
     int row_val = 0;

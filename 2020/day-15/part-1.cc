@@ -4,8 +4,8 @@
 #include <string>
 #include <vector>
 
+using std::ifstream, std::string, std::vector, std::map;
 using namespace ranges;
-using namespace std;
 
 struct info {
     int turn_1{0}; // the previous time it was spoken

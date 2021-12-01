@@ -5,11 +5,11 @@
 #include <string>
 #include <vector>
 
+using std::ifstream, std::vector, std::string;
 using namespace ranges;
-using namespace std;
 
 int64_t count_trees(const vector<string> &input,
-                    function<char(const string &, int)> lookup) {
+                    std::function<char(const string &, int)> lookup) {
     auto cells = input | views::enumerate | views::transform([&lookup](auto p) {
                      auto &[i, line] = p;
                      return lookup(line, i);

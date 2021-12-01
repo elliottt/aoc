@@ -4,8 +4,8 @@
 #include <string>
 #include <vector>
 
+using std::string, std::ifstream;
 using namespace ranges;
-using namespace std;
 
 struct problem {
     int min;
@@ -13,7 +13,7 @@ struct problem {
     char c;
     string password;
 
-    static problem parse(const string &str) {
+    static problem parse(const std::string &str) {
         int min = stoi(str);
         int max = stoi(str.substr(str.find('-') + 1));
         char c = str.substr(str.find(' ') + 1)[0];

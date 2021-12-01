@@ -5,7 +5,7 @@
 #include <string>
 #include <vector>
 
-using namespace std;
+using std::ifstream, std::string, std::vector, std::pair, std::map;
 using namespace ranges;
 
 void generate_masks_aux(vector<pair<uint64_t, uint64_t>> &masks,

@@ -5,14 +5,13 @@
 #include <vector>
 
 using namespace ranges;
-using namespace std;
 
 int main(int argc, char **argv) {
     if (argc != 2) {
         return 1;
     }
 
-    ifstream in{argv[1]};
+    std::ifstream in{argv[1]};
     fmt::print("part 1: {}\n",
                ranges::count(getlines(in) | views::enumerate |
                                  views::transform([](auto p) {

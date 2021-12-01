@@ -4,7 +4,7 @@
 #include <string>
 #include <vector>
 
-using namespace std;
+using std::ifstream, std::string, std::vector;
 using namespace ranges;
 
 class board {

@@ -4,7 +4,7 @@
 #include <string>
 #include <vector>
 
-using namespace std;
+using std::ifstream, std::string, std::vector;
 using namespace ranges;
 
 class board {
@@ -108,7 +108,7 @@ int main(int argc, char **argv) {
     int count = 0;
     for(; b.step(); ++count) {}
 
-    fmt::print("part 1: {}\n", b.occupied());
+    fmt::print("part 2: {}\n", b.occupied());
 
     return 0;
 }

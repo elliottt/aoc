@@ -8,7 +8,7 @@
 
 #include "2020/day-17/dense-intmap.h"
 
-using namespace std;
+using std::ifstream, std::string, std::vector;
 using namespace ranges;
 
 template <> struct aoc::value_traits<char> {
