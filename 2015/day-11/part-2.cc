@@ -23,37 +23,30 @@ void increment(string &input) {
 }
 
 bool increasing_straight(const string &password) {
-    return ranges::any_of(
-        password | views::take(password.size() - 2) | views::enumerate,
-        [&password](auto p) {
-            auto [ix, c] = p;
-            return password[ix + 1] == c + 1 && password[ix + 2] == c + 2;
-        });
+    return ranges::any_of(password | views::take(password.size() - 2) | views::enumerate, [&password](auto p) {
+        auto [ix, c] = p;
+        return password[ix + 1] == c + 1 && password[ix + 2] == c + 2;
+    });
 }
 
 bool no_easily_mistaken(const string &password) {
-    return !ranges::any_of(
-        password, [](auto c) { return c == 'i' || c == 'o' || c == 'l'; });
+    return !ranges::any_of(password, [](auto c) { return c == 'i' || c == 'o' || c == 'l'; });
 }
 
 bool double_letters(const string &password) {
 
     // characters that are followed by the same character again
-    auto repeats = password | views::take(password.size() - 1) |
-                   views::enumerate | views::filter([&password](auto p) {
+    auto repeats = password | views::take(password.size() - 1) | views::enumerate | views::filter([&password](auto p) {
                        auto [ix, c] = p;
                        return password[ix + 1] == c;
                    }) |
                    views::transform([](auto p) { return p.second; });
 
-    return ranges::accumulate(repeats | views::unique |
-                                  views::transform([](auto _) { return 1; }),
-                              0) > 1;
+    return ranges::accumulate(repeats | views::unique | views::transform([](auto _) { return 1; }), 0) > 1;
 }
 
 bool valid_password(const string &password) {
-    return increasing_straight(password) && no_easily_mistaken(password) &&
-           double_letters(password);
+    return increasing_straight(password) && no_easily_mistaken(password) && double_letters(password);
 }
 
 string next_password(const string &password) {

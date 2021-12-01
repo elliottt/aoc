@@ -6,7 +6,9 @@
 namespace aoc {
 
 template <typename T> struct value_traits {
-    static T &def() { return T(); }
+    static T &def() {
+        return T();
+    }
 };
 
 template <typename T> class intmap final {
@@ -27,12 +29,15 @@ private:
 
 public:
     intmap() : _bounds{0, 0}, _values{} {}
-    explicit intmap(size_t size)
-        : _bounds{0, 0}, _values(size, value_traits<T>::def()) {}
+    explicit intmap(size_t size) : _bounds{0, 0}, _values(size, value_traits<T>::def()) {}
 
-    size_t size() const { return _values.size(); }
+    size_t size() const {
+        return _values.size();
+    }
 
-    std::pair<int, int> bounds() const { return _bounds; }
+    std::pair<int, int> bounds() const {
+        return _bounds;
+    }
 
     T &operator[](int i) {
         auto off = map_index(i);
@@ -59,7 +64,9 @@ public:
 };
 
 template <typename T> struct value_traits<intmap<T>> {
-    static intmap<T> def() { return intmap<T>(); }
+    static intmap<T> def() {
+        return intmap<T>();
+    }
 };
 
 } // namespace aoc

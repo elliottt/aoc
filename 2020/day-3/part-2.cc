@@ -8,8 +8,7 @@
 using std::ifstream, std::vector, std::string;
 using namespace ranges;
 
-int64_t count_trees(const vector<string> &input,
-                    std::function<char(const string &, int)> lookup) {
+int64_t count_trees(const vector<string> &input, std::function<char(const string &, int)> lookup) {
     auto cells = input | views::enumerate | views::transform([&lookup](auto p) {
                      auto &[i, line] = p;
                      return lookup(line, i);
@@ -36,10 +35,8 @@ int main(int argc, char **argv) {
     ifstream in{argv[1]};
     auto input = getlines(in) | to<vector>();
 
-    auto total = count_trees(input, lookup_wrapped{1}) *
-                 count_trees(input, lookup_wrapped{3}) *
-                 count_trees(input, lookup_wrapped{5}) *
-                 count_trees(input, lookup_wrapped{7}) *
+    auto total = count_trees(input, lookup_wrapped{1}) * count_trees(input, lookup_wrapped{3}) *
+                 count_trees(input, lookup_wrapped{5}) * count_trees(input, lookup_wrapped{7}) *
                  count_trees(input, [](auto &line, auto i) {
                      if (i % 2 == 0) {
                          return line[(i / 2) % line.size()];

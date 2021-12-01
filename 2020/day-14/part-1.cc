@@ -27,8 +27,7 @@ int main(int argc, char **argv) {
                 ones_mask = 0L;
                 zeros_mask = value_mask;
 
-                for (auto const &[ix, c] :
-                     line | views::drop(7) | views::enumerate) {
+                for (auto const &[ix, c] : line | views::drop(7) | views::enumerate) {
                     auto bit = 35 - ix;
                     switch (c) {
                     case '1':

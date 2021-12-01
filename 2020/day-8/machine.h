@@ -1,8 +1,8 @@
 #ifndef MACHINE_H
 #define MACHINE_H
 
-#include <vector>
 #include <string>
+#include <vector>
 
 namespace aoc {
 
@@ -35,6 +35,6 @@ public:
     void reset();
 };
 
-}
+} // namespace aoc
 
 #endif

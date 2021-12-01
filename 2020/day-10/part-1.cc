@@ -14,9 +14,9 @@ int main(int argc, char **argv) {
     vector<int> adapters{};
     {
         ifstream in{argv[1]};
-        ranges::copy(getlines(in) |
-                         views::transform([](auto &str) { return stoi(str); }),
-                     ranges::back_inserter(adapters));
+        ranges::copy(
+            getlines(in) | views::transform([](auto &str) { return stoi(str); }),
+            ranges::back_inserter(adapters));
     }
 
     adapters.emplace_back(*ranges::max_element(adapters) + 3);

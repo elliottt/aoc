@@ -17,15 +17,13 @@ void node::add_edge(int other, int dist) {
 }
 
 void node::iter_edges(function<void(int, int)> step) const {
-    ranges::for_each(dists | ranges::views::enumerate,
-                     [*this, &step](auto const p) { step(p.first, p.second); });
+    ranges::for_each(dists | ranges::views::enumerate, [*this, &step](auto const p) { step(p.first, p.second); });
 }
 
 graph::graph() : nodes{} {}
 
 int graph::get_node(const string &name) {
-    auto it = ranges::find_if(
-        nodes, [&name](auto const &n) { return n.name == name; });
+    auto it = ranges::find_if(nodes, [&name](auto const &n) { return n.name == name; });
 
     if (it == nodes.end()) {
         auto ix = nodes.size();
@@ -44,8 +42,7 @@ void graph::add_edge(const string &from, const string &to, int dist) {
 }
 
 void graph::parse_edge(const string &line) {
-    vector<string> words = line | ranges::views::tokenize(regex{"[\\w]+"}) |
-                           ranges::to<vector<string>>();
+    vector<string> words = line | ranges::views::tokenize(regex{"[\\w]+"}) | ranges::to<vector<string>>();
 
     // the last word is at 3 because the regex doesn't match `=`
     add_edge(words[0], words[2], stoi(words[3]));
@@ -59,8 +56,7 @@ int graph::dist_by(function<bool(int, int)> cmp) {
         shared_ptr<path> parent;
         int distance;
 
-        path(int ix, shared_ptr<path> parent, int distance)
-            : ix{ix}, parent{parent}, distance{distance} {}
+        path(int ix, shared_ptr<path> parent, int distance) : ix{ix}, parent{parent}, distance{distance} {}
 
         bool seen(int other) {
             return other == ix || (parent && parent->seen(other));
@@ -69,8 +65,7 @@ int graph::dist_by(function<bool(int, int)> cmp) {
 
     deque<shared_ptr<path>> work{};
 
-    auto push_work = [*this, &work](int ix, shared_ptr<path> parent,
-                                    int distance) {
+    auto push_work = [*this, &work](int ix, shared_ptr<path> parent, int distance) {
         if (parent) {
             distance += parent->distance;
         }
@@ -91,13 +86,12 @@ int graph::dist_by(function<bool(int, int)> cmp) {
         work.pop_front();
 
         bool path_finished = true;
-        nodes[current->ix].iter_edges(
-            [&path_finished, &push_work, &current](auto other, auto dist) {
-                if (!current->seen(other)) {
-                    path_finished = false;
-                    push_work(other, current, dist);
-                }
-            });
+        nodes[current->ix].iter_edges([&path_finished, &push_work, &current](auto other, auto dist) {
+            if (!current->seen(other)) {
+                path_finished = false;
+                push_work(other, current, dist);
+            }
+        });
 
         if (path_finished) {
             if (total < 0 || cmp(current->distance, total)) {
@@ -112,9 +106,7 @@ int graph::dist_by(function<bool(int, int)> cmp) {
 void graph::print() const {
     for (auto const &n : nodes) {
         fmt::print("{}:\n", n.name);
-        n.iter_edges([*this](auto ix, auto dist) {
-            fmt::print("  -> {} ({})\n", nodes[ix].name, dist);
-        });
+        n.iter_edges([*this](auto ix, auto dist) { fmt::print("  -> {} ({})\n", nodes[ix].name, dist); });
     }
 }
 

@@ -45,8 +45,7 @@ int main(int argc, char **argv) {
     }
 
     auto total = ranges::accumulate(
-        input | ranges::views::tokenize(regex{"[^\n]+\n"}) |
-            ranges::views::transform(count_encoded_characters),
+        input | ranges::views::tokenize(regex{"[^\n]+\n"}) | ranges::views::transform(count_encoded_characters),
         0);
 
     fmt::print("part 2: {}\n", total);

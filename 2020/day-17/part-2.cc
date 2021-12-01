@@ -12,7 +12,9 @@ using std::ifstream, std::string, std::vector;
 using namespace ranges;
 
 template <> struct aoc::value_traits<char> {
-    static char def() { return '.'; }
+    static char def() {
+        return '.';
+    }
 };
 
 class pocket_dimension final {
@@ -24,17 +26,19 @@ public:
 
     pocket_dimension() : storage{}, next{} {}
 
-    cube &operator[](int i) { return storage[i]; }
+    cube &operator[](int i) {
+        return storage[i];
+    }
 
     int active_neighbors(int x, int y, int z, int w) {
-        auto xs = views::iota(x-1, x+2);
-        auto ys = views::iota(y-1, y+2);
-        auto zs = views::iota(z-1, z+2);
-        auto ws = views::iota(w-1, w+2);
+        auto xs = views::iota(x - 1, x + 2);
+        auto ys = views::iota(y - 1, y + 2);
+        auto zs = views::iota(z - 1, z + 2);
+        auto ws = views::iota(w - 1, w + 2);
 
         int acc{0};
         for (auto const &p : views::cartesian_product(xs, ys, zs, ws)) {
-            auto [a,b,c,d] = p;
+            auto [a, b, c, d] = p;
             if (x != a || y != b || z != c || w != d) {
                 if (storage[d][c][b][a] == '#') {
                     acc++;
@@ -46,19 +50,19 @@ public:
     }
 
     int total_active() {
-        auto [wl,wh] = storage.bounds();
-        auto [zl,zh] = storage[0].bounds();
-        auto [yl,yh] = storage[0][0].bounds();
-        auto [xl,xh] = storage[0][0][0].bounds();
+        auto [wl, wh] = storage.bounds();
+        auto [zl, zh] = storage[0].bounds();
+        auto [yl, yh] = storage[0][0].bounds();
+        auto [xl, xh] = storage[0][0][0].bounds();
 
         int acc{0};
-        for (auto w : views::ints(wl,wh+1)) {
+        for (auto w : views::ints(wl, wh + 1)) {
             auto &c = storage[w];
-            for (auto z : views::ints(zl,zh+1)) {
+            for (auto z : views::ints(zl, zh + 1)) {
                 auto &s = c[z];
-                for (auto y : views::ints(yl,yh+1)) {
+                for (auto y : views::ints(yl, yh + 1)) {
                     auto &r = s[y];
-                    for (auto x : views::ints(xl,xh+1)) {
+                    for (auto x : views::ints(xl, xh + 1)) {
                         if (r[x] == '#') {
                             acc++;
                         }
@@ -71,22 +75,22 @@ public:
     }
 
     void step() {
-        auto [wl,wh] = storage.bounds();
-        auto [zl,zh] = storage[0].bounds();
-        auto [yl,yh] = storage[0][0].bounds();
-        auto [xl,xh] = storage[0][0][0].bounds();
+        auto [wl, wh] = storage.bounds();
+        auto [zl, zh] = storage[0].bounds();
+        auto [yl, yh] = storage[0][0].bounds();
+        auto [xl, xh] = storage[0][0][0].bounds();
 
-        for (auto w : views::ints(wl-1, wh+2)) {
+        for (auto w : views::ints(wl - 1, wh + 2)) {
             auto &c = storage[w];
             auto &nc = next[w];
-            for (auto z : views::ints(zl-1,zh+2)) {
+            for (auto z : views::ints(zl - 1, zh + 2)) {
                 auto &s = c[z];
                 auto &ns = nc[z];
-                for (auto y : views::ints(yl-1,yh+2)) {
+                for (auto y : views::ints(yl - 1, yh + 2)) {
                     auto &r = s[y];
                     auto &nr = ns[y];
-                    for (auto x : views::ints(xl-1,xh+2)) {
-                        auto active = active_neighbors(x,y,z,w);
+                    for (auto x : views::ints(xl - 1, xh + 2)) {
+                        auto active = active_neighbors(x, y, z, w);
                         auto c = r[x];
                         if (c == '#' && (active != 2 && active != 3)) {
                             nr[x] = '.';

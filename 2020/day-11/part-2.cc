@@ -24,7 +24,7 @@ public:
 
     char walk_ray(int x, int y, int dx, int dy) const {
         char seen{'.'};
-        while (valid_coord(x,y) && seen == '.') {
+        while (valid_coord(x, y) && seen == '.') {
             seen = current[y][x];
             x += dx;
             y += dy;
@@ -33,20 +33,19 @@ public:
     }
 
     int neighbors(int x, int y) const {
-        auto xs = views::ints(x-1, x+2);
-        auto ys = views::ints(y-1, y+2);
+        auto xs = views::ints(x - 1, x + 2);
+        auto ys = views::ints(y - 1, y + 2);
 
-        return ranges::count_if(views::cartesian_product(xs, ys),
-            [x,y,*this](auto const &p) {
-                auto [i,j] = p;
-                if (x == i && y == j) {
-                    return false;
-                }
+        return ranges::count_if(views::cartesian_product(xs, ys), [x, y, *this](auto const &p) {
+            auto [i, j] = p;
+            if (x == i && y == j) {
+                return false;
+            }
 
-                int dx = i - x;
-                int dy = j - y;
-                return walk_ray(i,j,dx,dy) == '#';
-            });
+            int dx = i - x;
+            int dy = j - y;
+            return walk_ray(i, j, dx, dy) == '#';
+        });
     }
 
     bool step() {
@@ -60,7 +59,7 @@ public:
                     continue;
                 }
 
-                int occ = neighbors(x,y);
+                int occ = neighbors(x, y);
                 if (c == 'L' && occ == 0) {
                     changed = true;
                     next[y][x] = '#';
@@ -77,9 +76,7 @@ public:
     }
 
     int occupied() const {
-        return ranges::accumulate(current | views::transform([](auto &row) {
-            return ranges::count(row, '#');
-        }), 0);
+        return ranges::accumulate(current | views::transform([](auto &row) { return ranges::count(row, '#'); }), 0);
     }
 
     void print() {
@@ -88,7 +85,6 @@ public:
         }
     }
 };
-
 
 int main(int argc, char **argv) {
     if (argc != 2) {
@@ -106,7 +102,8 @@ int main(int argc, char **argv) {
     }
 
     int count = 0;
-    for(; b.step(); ++count) {}
+    for (; b.step(); ++count) {
+    }
 
     fmt::print("part 2: {}\n", b.occupied());
 

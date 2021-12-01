@@ -33,8 +33,7 @@ int main(int argc, char **argv) {
     }
 
     ifstream in{argv[1]};
-    auto row_ids = getlines(in) | views::transform(parse_seat_row) |
-                   to<vector>() | actions::sort;
+    auto row_ids = getlines(in) | views::transform(parse_seat_row) | to<vector>() | actions::sort;
 
     auto sol = views::zip(row_ids, row_ids | views::drop(1)) |
                views::filter([](auto p) { return p.first + 1 != p.second; }) |

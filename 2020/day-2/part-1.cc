@@ -21,8 +21,7 @@ struct problem {
     }
 
     bool is_valid() {
-        int occs =
-            ranges::count_if(password, [*this](auto a) { return a == c; });
+        int occs = ranges::count_if(password, [*this](auto a) { return a == c; });
         return occs >= min && occs <= max;
     }
 };
@@ -34,6 +33,5 @@ int main(int argc, char **argv) {
 
     ifstream in{argv[1]};
 
-    fmt::print("part 1: {}\n", ranges::count_if(getlines(in) |
-                views::transform(problem::parse), &problem::is_valid));
+    fmt::print("part 1: {}\n", ranges::count_if(getlines(in) | views::transform(problem::parse), &problem::is_valid));
 }

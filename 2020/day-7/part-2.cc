@@ -9,10 +9,9 @@ using namespace ranges;
 
 int nested_bags(const map<string, map<string, int>> &bags, const string &bag) {
     auto &contents = bags.find(bag)->second;
-    return ranges::accumulate(contents | views::transform([&bags](auto &e) {
-                                  return nested_bags(bags, e.first) * e.second;
-                              }),
-                              1);
+    return ranges::accumulate(
+        contents | views::transform([&bags](auto &e) { return nested_bags(bags, e.first) * e.second; }),
+        1);
 }
 
 int main(int argc, char **argv) {

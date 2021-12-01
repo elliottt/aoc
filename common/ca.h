@@ -7,9 +7,8 @@ namespace aoc {
 
 class ca {
 public:
-
 };
 
-}
+} // namespace aoc
 
 #endif

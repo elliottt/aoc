@@ -20,10 +20,7 @@ int main(int argc, char **argv) {
     {
         ifstream in{argv[1]};
 
-        state.instrs =
-            getlines(in) |
-            views::transform([](auto &str) { return aoc::instr::parse(str); }) |
-            to<vector>();
+        state.instrs = getlines(in) | views::transform([](auto &str) { return aoc::instr::parse(str); }) | to<vector>();
     }
 
     state.run();

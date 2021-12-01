@@ -43,10 +43,9 @@ int main(int argc, char **argv) {
         ranges::copy(ranges::istream<char>(in), ranges::back_inserter(input));
     }
 
-    auto total =
-        ranges::accumulate(input | ranges::views::tokenize(regex{"[^\n]+\n"}) |
-                               ranges::views::transform(count_characters),
-                           0);
+    auto total = ranges::accumulate(
+        input | ranges::views::tokenize(regex{"[^\n]+\n"}) | ranges::views::transform(count_characters),
+        0);
 
     fmt::print("part 1: {}\n", total);
 

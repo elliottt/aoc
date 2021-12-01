@@ -13,13 +13,12 @@ int main(int argc, char **argv) {
 
     ifstream in{argv[1]};
 
-    auto total = ranges::accumulate(getlines(in) | views::split("") |
-                           views::transform([](auto rng) {
-                               string all = rng | views::join | to<string>() |
-                                            actions::sort | actions::unique;
-                               return all.size();
-                           }),
-                       0);
+    auto total = ranges::accumulate(
+        getlines(in) | views::split("") | views::transform([](auto rng) {
+            string all = rng | views::join | to<string>() | actions::sort | actions::unique;
+            return all.size();
+        }),
+        0);
 
     fmt::print("part 1: {}\n", total);
 

@@ -18,17 +18,14 @@ string md5(string input) {
 
     string result;
     const auto intDigest = reinterpret_cast<const int *>(&digest);
-    boost::algorithm::hex(intDigest,
-                          intDigest + (sizeof(md5::digest_type) / sizeof(int)),
-                          back_inserter(result));
+    boost::algorithm::hex(intDigest, intDigest + (sizeof(md5::digest_type) / sizeof(int)), back_inserter(result));
 
     return result;
 }
 
 int leading_zeros(string digest) {
     using namespace ranges;
-    return ranges::count(
-        digest | views::take_while([](auto c) { return c == '0'; }), '0');
+    return ranges::count(digest | views::take_while([](auto c) { return c == '0'; }), '0');
 }
 
 int main(int argc, char **argv) {
@@ -38,8 +35,8 @@ int main(int argc, char **argv) {
                    auto digest = md5("iwrupvqb" + std::to_string(i));
                    return {i, leading_zeros(digest)};
                }) |
-               views::drop_while([](auto p) { return p.second != 5; }) |
-               views::take(1) | ranges::to<vector<pair<int, int>>>();
+               views::drop_while([](auto p) { return p.second != 5; }) | views::take(1) |
+               ranges::to<vector<pair<int, int>>>();
 
     fmt::print("part-1: {}\n", res.front().first);
 

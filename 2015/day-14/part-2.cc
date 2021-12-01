@@ -13,15 +13,12 @@ struct reindeer {
     int rest;
 
     static reindeer parse(const string &line) {
-        auto words =
-            line | views::tokenize(regex{"[\\w]+"}) | to<vector<string>>();
-        return reindeer{words[0], stoi(words[3]), stoi(words[7]),
-                        stoi(words[14])};
+        auto words = line | views::tokenize(regex{"[\\w]+"}) | to<vector<string>>();
+        return reindeer{words[0], stoi(words[3]), stoi(words[7]), stoi(words[14])};
     }
 
     void print() const {
-        fmt::print("{} travels at {}km/s for {}s and rests for {}s\n", name,
-                   speed, duration, rest);
+        fmt::print("{} travels at {}km/s for {}s and rests for {}s\n", name, speed, duration, rest);
     }
 };
 
@@ -82,8 +79,7 @@ int main(int argc, char **argv) {
         step(racers, state);
     }
 
-    fmt::print("part 2: {}\n",
-               ranges::max_element(state, {}, &position::score)->score);
+    fmt::print("part 2: {}\n", ranges::max_element(state, {}, &position::score)->score);
 
     return 0;
 }

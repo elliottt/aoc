@@ -1,8 +1,8 @@
-#include <range/v3/all.hpp>
 #include <fmt/core.h>
 #include <fstream>
-#include <vector>
+#include <range/v3/all.hpp>
 #include <string>
+#include <vector>
 
 using std::ifstream, std::string, std::vector;
 using namespace ranges;

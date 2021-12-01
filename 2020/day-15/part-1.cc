@@ -31,17 +31,17 @@ struct info {
 
 int main(int argc, char **argv) {
 
-    vector<int> input{12,20,0,6,1,17,7};
+    vector<int> input{12, 20, 0, 6, 1, 17, 7};
 
     // a mapping from input to the last turn it was seen on
-    map<int,info> history{};
+    map<int, info> history{};
     for (auto [ix, val] : input | views::enumerate) {
-        history.emplace(val, info(ix+1));
+        history.emplace(val, info(ix + 1));
     }
 
     auto previous = input.back();
     for (auto prev_turn : views::iota(static_cast<int>(input.size()), 2020)) {
-        auto turn = prev_turn+1;
+        auto turn = prev_turn + 1;
 
         int val{0};
         auto &last = history[previous];

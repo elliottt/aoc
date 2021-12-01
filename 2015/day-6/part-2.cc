@@ -16,8 +16,7 @@ pair<int, int> parse_point(string str) {
 }
 
 void interpret(vector<int> &lights, string line) {
-    vector<string> words = line | ranges::views::tokenize(regex{"[\\w,]+"}) |
-                           ranges::to<vector<string>>();
+    vector<string> words = line | ranges::views::tokenize(regex{"[\\w,]+"}) | ranges::to<vector<string>>();
 
     if (words[0] == "toggle") {
         auto [x1, y1] = parse_point(words[1]);

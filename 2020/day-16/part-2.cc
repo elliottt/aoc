@@ -42,8 +42,7 @@ int main(int argc, char **argv) {
     {
         ifstream in{argv[1]};
 
-        for (auto [ix, lines] :
-             getlines(in) | views::split("") | views::enumerate) {
+        for (auto [ix, lines] : getlines(in) | views::split("") | views::enumerate) {
             switch (ix) {
             case 0:
                 for (auto const &line : lines) {
@@ -53,8 +52,7 @@ int main(int argc, char **argv) {
 
             case 1:
                 for (auto const &line : lines | views::drop(1)) {
-                    for (auto &match :
-                         line | views::tokenize(regex{"[[:digit:]]+"})) {
+                    for (auto &match : line | views::tokenize(regex{"[[:digit:]]+"})) {
                         me.emplace_back(stoi(match));
                     }
                 }
@@ -62,17 +60,11 @@ int main(int argc, char **argv) {
 
             case 2:
                 for (auto const &line : lines | views::drop(1)) {
-                    auto ticket = line |
-                                  views::tokenize(regex{"[[:digit:]]+"}) |
-                                  views::transform([](auto const &str) {
-                                      return stoi(str);
-                                  }) |
-                                  to<vector>();
+                    auto ticket = line | views::tokenize(regex{"[[:digit:]]+"}) |
+                                  views::transform([](auto const &str) { return stoi(str); }) | to<vector>();
 
                     if (ranges::all_of(ticket, [&rules](auto n) {
-                            return ranges::any_of(rules, [n](auto const &rule) {
-                                return rule.valid(n);
-                            });
+                            return ranges::any_of(rules, [n](auto const &rule) { return rule.valid(n); });
                         })) {
                         valid.emplace_back(std::move(ticket));
                     }
@@ -87,9 +79,7 @@ int main(int argc, char **argv) {
         auto ix = p.first;
         auto &rule = p.second;
         for (auto col : views::ints(0, static_cast<int>(constraints.size()))) {
-            if (ranges::all_of(valid, [col, &rule](auto const &ticket) {
-                    return rule.valid(ticket[col]);
-                })) {
+            if (ranges::all_of(valid, [col, &rule](auto const &ticket) { return rule.valid(ticket[col]); })) {
                 constraints[ix].emplace_back(col);
             }
         }
@@ -97,8 +87,7 @@ int main(int argc, char **argv) {
 
     vector<int> solution(rules.size(), -1);
     while (true) {
-        auto it = ranges::find_if(
-            constraints, [](auto const &cs) { return cs.size() == 1; });
+        auto it = ranges::find_if(constraints, [](auto const &cs) { return cs.size() == 1; });
         if (it == constraints.end()) {
             // experimentally, there are no guesses to make when solving the
             // constraint set, so it's fine to quit out when there are no
@@ -114,17 +103,19 @@ int main(int argc, char **argv) {
         }
     }
 
-    auto res =
-        ranges::accumulate(views::zip_with(
-                               [&me](auto const &rule, auto col) {
-                                   if (rule.name.substr(0, 9) == "departure") {
-                                       return static_cast<int64_t>(me[col]);
-                                   } else {
-                                       return 1L;
-                                   }
-                               },
-                               rules, solution),
-                           1L, ranges::multiplies{});
+    auto res = ranges::accumulate(
+        views::zip_with(
+            [&me](auto const &rule, auto col) {
+                if (rule.name.substr(0, 9) == "departure") {
+                    return static_cast<int64_t>(me[col]);
+                } else {
+                    return 1L;
+                }
+            },
+            rules,
+            solution),
+        1L,
+        ranges::multiplies{});
 
     fmt::print("part 2: {}\n", res);
 

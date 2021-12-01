@@ -27,13 +27,13 @@ public:
 
     int neighbors(int x, int y) const {
         int count{0};
-        for (auto i : views::ints(x-1, x+2)) {
-            for (auto j : views::ints(y-1, y+2)) {
+        for (auto i : views::ints(x - 1, x + 2)) {
+            for (auto j : views::ints(y - 1, y + 2)) {
                 if (i == x && j == y) {
                     continue;
                 }
 
-                if (fetch(i,j) == '#') {
+                if (fetch(i, j) == '#') {
                     ++count;
                 }
             }
@@ -52,7 +52,7 @@ public:
                     continue;
                 }
 
-                int occ = neighbors(x,y);
+                int occ = neighbors(x, y);
                 if (c == 'L' && occ == 0) {
                     changed = true;
                     next[y][x] = '#';
@@ -69,9 +69,7 @@ public:
     }
 
     int occupied() const {
-        return ranges::accumulate(current | views::transform([](auto &row) {
-            return ranges::count(row, '#');
-        }), 0);
+        return ranges::accumulate(current | views::transform([](auto &row) { return ranges::count(row, '#'); }), 0);
     }
 
     void print() {
@@ -80,7 +78,6 @@ public:
         }
     }
 };
-
 
 int main(int argc, char **argv) {
     if (argc != 2) {
@@ -98,7 +95,8 @@ int main(int argc, char **argv) {
     }
 
     int count = 0;
-    for(; b.step(); ++count) {}
+    for (; b.step(); ++count) {
+    }
 
     fmt::print("part 1: {}\n", b.occupied());
 

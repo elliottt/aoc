@@ -12,14 +12,15 @@ int main(int argc, char **argv) {
     }
 
     std::ifstream in{argv[1]};
-    fmt::print("part 1: {}\n",
-               ranges::count(getlines(in) | views::enumerate |
-                                 views::transform([](auto p) {
-                                     auto &[i, line] = p;
-                                     auto x = i * 3;
-                                     return line[x % line.size()];
-                                 }),
-                             '#'));
+    fmt::print(
+        "part 1: {}\n",
+        ranges::count(
+            getlines(in) | views::enumerate | views::transform([](auto p) {
+                auto &[i, line] = p;
+                auto x = i * 3;
+                return line[x % line.size()];
+            }),
+            '#'));
 
     return 0;
 }

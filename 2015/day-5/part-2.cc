@@ -16,8 +16,7 @@ bool contains_double_repeat(string str) {
 
     auto has_substr_from = [&str](auto ix) {
         auto substr = str.substr(ix, 2);
-        return !ranges::empty(
-            ranges::search(str | views::drop(ix + 2), substr));
+        return !ranges::empty(ranges::search(str | views::drop(ix + 2), substr));
     };
 
     return ranges::find_if(ixs, has_substr_from) != ranges::end(ixs);
@@ -29,9 +28,7 @@ bool contains_one_letter_repeat(string str) {
 
     auto ixs = views::ints(1, static_cast<int>(str.size()) - 1);
 
-    auto has_one_letter_repeat = [&str](auto ix) {
-        return str[ix - 1] == str[ix + 1];
-    };
+    auto has_one_letter_repeat = [&str](auto ix) { return str[ix - 1] == str[ix + 1]; };
 
     return ranges::find_if(ixs, has_one_letter_repeat) != ranges::end(ixs);
 }
@@ -46,8 +43,7 @@ int main(int argc, char **argv) {
     }
 
     ifstream in{argv[1]};
-    fmt::print("part 2: {}\n",
-               ranges::count_if(ranges::istream<string>(in), is_nice));
+    fmt::print("part 2: {}\n", ranges::count_if(ranges::istream<string>(in), is_nice));
 
     return 0;
 }

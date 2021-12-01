@@ -19,10 +19,7 @@ int main(int argc, char **argv) {
     {
         ifstream in{argv[1]};
 
-        state.instrs =
-            getlines(in) |
-            views::transform([](auto &str) { return aoc::instr::parse(str); }) |
-            to<vector>();
+        state.instrs = getlines(in) | views::transform([](auto &str) { return aoc::instr::parse(str); }) | to<vector>();
     }
 
     // run it once to mark instructions
@@ -32,8 +29,7 @@ int main(int argc, char **argv) {
     // doesn't interleave effects with the run/reset behavior of the machine.
     auto indices =
         state.instrs | views::enumerate | views::filter([](auto const &p) {
-            return p.second.visited && (p.second.op == aoc::instr_op::jmp ||
-                                        p.second.op == aoc::instr_op::nop);
+            return p.second.visited && (p.second.op == aoc::instr_op::jmp || p.second.op == aoc::instr_op::nop);
         }) |
         views::transform([](auto const &p) { return p.first; }) | to<vector>();
 

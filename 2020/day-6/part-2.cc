@@ -24,11 +24,9 @@ int main(int argc, char **argv) {
 
             string all = rng | views::join | to<string>() | actions::sort;
 
-            return ranges::count_if(
-                all | views::group_by([](auto a, auto b) { return a == b; }),
-                [&lines](auto rng) {
-                    return ranges::size(rng) == lines.size();
-                });
+            return ranges::count_if(all | views::group_by([](auto a, auto b) { return a == b; }), [&lines](auto rng) {
+                return ranges::size(rng) == lines.size();
+            });
         }),
         0);
 

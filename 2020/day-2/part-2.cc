@@ -21,7 +21,7 @@ struct problem {
     }
 
     bool is_valid() {
-        return (password[min-1] == c) ^ (password[max-1] == c);
+        return (password[min - 1] == c) ^ (password[max - 1] == c);
     }
 };
 
@@ -31,6 +31,5 @@ int main(int argc, char **argv) {
     }
 
     ifstream in{argv[1]};
-    fmt::print("part 1: {}\n", ranges::count_if(getlines(in) |
-                views::transform(problem::parse), &problem::is_valid));
+    fmt::print("part 1: {}\n", ranges::count_if(getlines(in) | views::transform(problem::parse), &problem::is_valid));
 }

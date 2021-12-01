@@ -9,8 +9,7 @@ namespace aoc {
 
 class coord;
 
-template <typename T>
-class grid {
+template <typename T> class grid {
 public:
     using value_type = T;
 
@@ -23,6 +22,6 @@ private:
     vector<value_type> cells;
 };
 
-}
+} // namespace aoc
 
 #endif

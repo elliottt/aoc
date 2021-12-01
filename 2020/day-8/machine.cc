@@ -28,14 +28,14 @@ instr instr::parse(const string &str) {
 
 void instr::toggle() {
     switch (op) {
-        case instr_op::acc:
-            break;
-        case instr_op::jmp:
-            op = instr_op::nop;
-            break;
-        case instr_op::nop:
-            op = instr_op::jmp;
-            break;
+    case instr_op::acc:
+        break;
+    case instr_op::jmp:
+        op = instr_op::nop;
+        break;
+    case instr_op::nop:
+        op = instr_op::jmp;
+        break;
     }
 }
 

@@ -6,9 +6,13 @@ using namespace std;
 using json = nlohmann::json;
 
 struct counter : nlohmann::json_sax<json> {
-    virtual bool null() final { return true; }
+    virtual bool null() final {
+        return true;
+    }
 
-    virtual bool boolean(bool val) final { return true; }
+    virtual bool boolean(bool val) final {
+        return true;
+    }
 
     virtual bool number_integer(number_integer_t val) final {
         stack.back().total += val;
@@ -31,7 +35,9 @@ struct counter : nlohmann::json_sax<json> {
         return true;
     }
 
-    virtual bool binary(binary_t &val) final { return true; }
+    virtual bool binary(binary_t &val) final {
+        return true;
+    }
 
     virtual bool start_object(std::size_t elements) final {
         stack.emplace_back();
@@ -61,10 +67,12 @@ struct counter : nlohmann::json_sax<json> {
         return true;
     }
 
-    virtual bool key(string_t &val) final { return true; }
+    virtual bool key(string_t &val) final {
+        return true;
+    }
 
-    virtual bool parse_error(std::size_t position, const string_t &last_token,
-                             const nlohmann::detail::exception &e) final {
+    virtual bool
+    parse_error(std::size_t position, const string_t &last_token, const nlohmann::detail::exception &e) final {
         return false;
     }
 
@@ -75,7 +83,9 @@ struct counter : nlohmann::json_sax<json> {
 
     vector<object_state> stack{{}};
 
-    int get_total() const { return stack.back().total; }
+    int get_total() const {
+        return stack.back().total;
+    }
 };
 
 int main(int argc, char **argv) {

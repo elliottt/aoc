@@ -31,13 +31,10 @@ int main(int argc, char **argv) {
     vector<string> input;
     {
         ifstream in{argv[1]};
-        std::copy(istream_iterator<string>{in}, istream_iterator<string>{},
-                  back_inserter(input));
+        std::copy(istream_iterator<string>{in}, istream_iterator<string>{}, back_inserter(input));
     }
 
-    fmt::print("part 2: {}\n",
-               ranges::accumulate(
-                   input | ranges::views::transform(ribbon_required), 0));
+    fmt::print("part 2: {}\n", ranges::accumulate(input | ranges::views::transform(ribbon_required), 0));
 
     return 0;
 }

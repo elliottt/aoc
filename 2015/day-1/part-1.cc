@@ -31,8 +31,7 @@ int main(int argc, char **argv) {
     ifstream in{argv[1]};
     std::string out;
 
-    std::copy(istream_iterator<char>{in}, istream_iterator<char>{},
-              back_inserter(out));
+    std::copy(istream_iterator<char>{in}, istream_iterator<char>{}, back_inserter(out));
 
     fmt::print("part 1: {}\n", eval_directions(out));
 

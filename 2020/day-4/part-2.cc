@@ -20,8 +20,7 @@ void extend_passport(passport &p, const string &line) {
     }
 }
 
-const vector<string> required{"byr", "iyr", "eyr", "hgt",
-                              "hcl", "ecl", "pid", "cid"};
+const vector<string> required{"byr", "iyr", "eyr", "hgt", "hcl", "ecl", "pid", "cid"};
 
 const string valid_hcl{"0123456789abcdef"};
 
@@ -41,8 +40,7 @@ bool valid_year(const string &str, int lower, int upper) {
 }
 
 bool check_passport(const passport &p) {
-    auto missing = ranges::count_if(
-        required, [&p](auto &field) { return p.find(field) == p.end(); });
+    auto missing = ranges::count_if(required, [&p](auto &field) { return p.find(field) == p.end(); });
 
     if (missing > 1) {
         return false;
@@ -83,9 +81,7 @@ bool check_passport(const passport &p) {
 
     auto hcl = p.find("hcl")->second;
     if (hcl.size() != 7 || hcl[0] != '#' ||
-        ranges::any_of(hcl | views::drop(1), [](auto c) {
-            return ranges::find(valid_hcl, c) == valid_hcl.end();
-        })) {
+        ranges::any_of(hcl | views::drop(1), [](auto c) { return ranges::find(valid_hcl, c) == valid_hcl.end(); })) {
         return false;
     }
 
@@ -95,8 +91,7 @@ bool check_passport(const passport &p) {
     }
 
     auto pid = p.find("pid")->second;
-    if (pid.size() != 9 ||
-        ranges::any_of(pid, [](auto c) { return !isdigit(c); })) {
+    if (pid.size() != 9 || ranges::any_of(pid, [](auto c) { return !isdigit(c); })) {
         return false;
     }
 
@@ -116,8 +111,7 @@ int main(int argc, char **argv) {
     valid = ranges::count_if(
         getlines(in) | views::split("") | views::transform([](auto lines) {
             passport p{};
-            ranges::for_each(lines,
-                             [&p](auto &line) { extend_passport(p, line); });
+            ranges::for_each(lines, [&p](auto &line) { extend_passport(p, line); });
             return p;
         }),
         check_passport);

@@ -24,15 +24,13 @@ int main(int argc, char **argv) {
 
         getline(in, line);
         ranges::copy(
-            line | views::tokenize(regex{"[[:digit:]]+"}) |
-                views::transform([](auto const &str) -> pair<int, int> {
-                    return {stoi(str), 0};
-                }),
+            line | views::tokenize(regex{"[[:digit:]]+"}) | views::transform([](auto const &str) -> pair<int, int> {
+                return {stoi(str), 0};
+            }),
             ranges::back_inserter(busses));
     }
 
-    while (ranges::all_of(busses,
-                          [leave](auto &bus) { return bus.second < leave; })) {
+    while (ranges::all_of(busses, [leave](auto &bus) { return bus.second < leave; })) {
         for (auto &bus : busses) {
             bus.second += bus.first;
         }

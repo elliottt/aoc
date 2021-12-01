@@ -15,24 +15,26 @@ struct properties {
     int texture;
     int calories;
 
-    static constexpr properties empty() { return {0, 0, 0, 0, 0}; }
+    static constexpr properties empty() {
+        return {0, 0, 0, 0, 0};
+    }
 
     properties operator*(int n) const {
-        return {capacity * n, durability * n, flavor * n, texture * n,
-                calories * n};
+        return {capacity * n, durability * n, flavor * n, texture * n, calories * n};
     }
 
     properties operator+(const properties &other) const {
         return {
-            capacity + other.capacity, durability + other.durability,
-            flavor + other.flavor,     texture + other.texture,
+            capacity + other.capacity,
+            durability + other.durability,
+            flavor + other.flavor,
+            texture + other.texture,
             calories + other.calories,
         };
     }
 
     int total() const {
-        return std::max(0, capacity) * std::max(0, durability) *
-               std::max(0, flavor) * std::max(0, texture);
+        return std::max(0, capacity) * std::max(0, durability) * std::max(0, flavor) * std::max(0, texture);
     }
 };
 
@@ -42,26 +44,29 @@ struct ingredient {
 
     static ingredient parse(const string &line) {
         auto words = line | views::tokenize(regex{"[\\w-]+"}) | to<vector>();
-        return {words[0],
-                {stoi(words[2]), stoi(words[4]), stoi(words[6]), stoi(words[8]),
-                 stoi(words[10])}};
+        return {words[0], {stoi(words[2]), stoi(words[4]), stoi(words[6]), stoi(words[8]), stoi(words[10])}};
     }
 
     void print() {
-        fmt::print("{:>12}: {:>2}, {:>2}, {:>2}, {:>2}, {:>2}\n", name,
-                   props.capacity, props.durability, props.flavor,
-                   props.texture, props.calories);
+        fmt::print(
+            "{:>12}: {:>2}, {:>2}, {:>2}, {:>2}, {:>2}\n",
+            name,
+            props.capacity,
+            props.durability,
+            props.flavor,
+            props.texture,
+            props.calories);
     }
 
-    properties use(int n) const { return props * n; }
+    properties use(int n) const {
+        return props * n;
+    }
 };
 
-bool validate(const vector<ingredient> &ingredients,
-              const vector<int> &amounts) {
+bool validate(const vector<ingredient> &ingredients, const vector<int> &amounts) {
 
     auto summed = ranges::accumulate(
-        views::zip_with([](auto &i, auto amount) { return i.props * amount; },
-                        ingredients, amounts),
+        views::zip_with([](auto &i, auto amount) { return i.props * amount; }, ingredients, amounts),
         properties::empty());
 
     return summed.total() > 0;
@@ -69,10 +74,8 @@ bool validate(const vector<ingredient> &ingredients,
 
 auto combinations() {
     auto values = views::ints(1, 98);
-    return views::cartesian_product(values, values, values, values) |
-           views::filter([](auto p) {
-               return 100 == (std::get<0>(p) + std::get<1>(p) + std::get<2>(p) +
-                              std::get<3>(p));
+    return views::cartesian_product(values, values, values, values) | views::filter([](auto p) {
+               return 100 == (std::get<0>(p) + std::get<1>(p) + std::get<2>(p) + std::get<3>(p));
            });
 }
 
@@ -85,18 +88,14 @@ int main(int argc, char **argv) {
 
     {
         ifstream in{argv[1]};
-        ingredients = getlines(in) | views::transform([](auto &line) {
-                          return ingredient::parse(line);
-                      }) |
-                      to<vector>();
+        ingredients =
+            getlines(in) | views::transform([](auto &line) { return ingredient::parse(line); }) | to<vector>();
     }
 
     auto max_val = 0;
     for (auto const &p : combinations()) {
-        auto aggregate = (ingredients[0].props * std::get<0>(p)) +
-                         (ingredients[1].props * std::get<1>(p)) +
-                         (ingredients[2].props * std::get<2>(p)) +
-                         (ingredients[3].props * std::get<3>(p));
+        auto aggregate = (ingredients[0].props * std::get<0>(p)) + (ingredients[1].props * std::get<1>(p)) +
+                         (ingredients[2].props * std::get<2>(p)) + (ingredients[3].props * std::get<3>(p));
 
         if (aggregate.calories == 500) {
             auto total = aggregate.total();

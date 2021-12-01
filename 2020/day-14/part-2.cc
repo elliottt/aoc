@@ -8,9 +8,12 @@
 using std::ifstream, std::string, std::vector, std::pair, std::map;
 using namespace ranges;
 
-void generate_masks_aux(vector<pair<uint64_t, uint64_t>> &masks,
-                        uint64_t floating, uint64_t ones, uint64_t zeros,
-                        int bit) {
+void generate_masks_aux(
+    vector<pair<uint64_t, uint64_t>> &masks,
+    uint64_t floating,
+    uint64_t ones,
+    uint64_t zeros,
+    int bit) {
     if (bit >= 36) {
         masks.emplace_back(ones, zeros);
         return;
@@ -25,8 +28,7 @@ void generate_masks_aux(vector<pair<uint64_t, uint64_t>> &masks,
     }
 }
 
-void generate_masks(vector<pair<uint64_t, uint64_t>> &masks, uint64_t floating,
-                    uint64_t ones) {
+void generate_masks(vector<pair<uint64_t, uint64_t>> &masks, uint64_t floating, uint64_t ones) {
     generate_masks_aux(masks, floating, ones, (1L << 36) - 1L, 0);
 }
 
@@ -48,8 +50,7 @@ int main(int argc, char **argv) {
                 uint64_t ones{0};
                 uint64_t floating{0};
 
-                for (auto const &[ix, c] :
-                     line | views::drop(7) | views::enumerate) {
+                for (auto const &[ix, c] : line | views::drop(7) | views::enumerate) {
                     auto bit = 35 - ix;
                     switch (c) {
                     case '1':

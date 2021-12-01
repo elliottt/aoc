@@ -29,8 +29,7 @@ optional<binop> parse_binop(const string &command, const string &&op) {
         return std::nullopt;
     }
 
-    return binop{command.substr(0, start - 1),
-                 command.substr(start + 1 + op.size())};
+    return binop{command.substr(0, start - 1), command.substr(start + 1 + op.size())};
 }
 
 optional<string> parse_prefix(const string &command, const string &&op) {
@@ -80,17 +79,13 @@ void wires::extend(const string &line) {
 
     auto ix = lookup(target);
     if (auto op = parse_binop(command, "AND")) {
-        state[ix] = node(node::op::AND, parse_operand(*this, op->l),
-                         parse_operand(*this, op->r));
+        state[ix] = node(node::op::AND, parse_operand(*this, op->l), parse_operand(*this, op->r));
     } else if (auto op = parse_binop(command, "OR")) {
-        state[ix] = node(node::op::OR, parse_operand(*this, op->l),
-                         parse_operand(*this, op->r));
+        state[ix] = node(node::op::OR, parse_operand(*this, op->l), parse_operand(*this, op->r));
     } else if (auto op = parse_binop(command, "RSHIFT")) {
-        state[ix] = node(node::op::RSHIFT, parse_operand(*this, op->l),
-                         parse_operand(*this, op->r));
+        state[ix] = node(node::op::RSHIFT, parse_operand(*this, op->l), parse_operand(*this, op->r));
     } else if (auto op = parse_binop(command, "LSHIFT")) {
-        state[ix] = node(node::op::LSHIFT, parse_operand(*this, op->l),
-                         parse_operand(*this, op->r));
+        state[ix] = node(node::op::LSHIFT, parse_operand(*this, op->l), parse_operand(*this, op->r));
     } else if (auto op = parse_prefix(command, "NOT")) {
         state[ix] = node(node::op::NOT, parse_operand(*this, *op));
     } else {
@@ -102,9 +97,13 @@ operand::operand() : value{0} {}
 
 operand::operand(int value) : value{value} {}
 
-operand operand::reference(int value) { return operand(-1 - value); }
+operand operand::reference(int value) {
+    return operand(-1 - value);
+}
 
-operand operand::literal(int value) { return operand(value); }
+operand operand::literal(int value) {
+    return operand(value);
+}
 
 int operand::get_value(wires &state) const {
     if (value >= 0) {
@@ -115,8 +114,7 @@ int operand::get_value(wires &state) const {
     }
 }
 
-node::node(op instr, operand left, operand right)
-    : instr{instr}, left{left}, right{right} {}
+node::node(op instr, operand left, operand right) : instr{instr}, left{left}, right{right} {}
 
 node::node() : node(op::VAL, operand{}, operand{}) {}
 

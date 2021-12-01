@@ -1,10 +1,10 @@
+#include <deque>
 #include <fmt/core.h>
 #include <fstream>
 #include <range/v3/all.hpp>
-#include <string>
 #include <regex>
-#include <deque>
 #include <set>
+#include <string>
 
 using std::ifstream, std::map, std::string, std::regex, std::set, std::deque;
 using namespace ranges;
@@ -14,7 +14,7 @@ int main(int argc, char **argv) {
         return 1;
     }
 
-    map<string, map<string,int>> bags;
+    map<string, map<string, int>> bags;
 
     {
         ifstream in{argv[1]};
@@ -28,7 +28,7 @@ int main(int argc, char **argv) {
             for (auto other : line | views::tokenize(match)) {
                 string str = other.str();
                 auto num = stoi(str);
-                auto kind = str.substr(str.find(" ")+1);
+                auto kind = str.substr(str.find(" ") + 1);
                 contents[kind] += num;
             }
         }

@@ -10,8 +10,7 @@ using namespace ranges;
 // everywhere **except** the return type of this function. that led to an hour
 // of confused debugging, wondering why the heck my answer was wrong when it
 // passed on the test inputs.
-int64_t combinations(vector<int64_t> &cache, const vector<int64_t> &adapters,
-                     int ix) {
+int64_t combinations(vector<int64_t> &cache, const vector<int64_t> &adapters, int ix) {
     if (cache[ix] != -1) {
         return cache[ix];
     }
@@ -22,12 +21,9 @@ int64_t combinations(vector<int64_t> &cache, const vector<int64_t> &adapters,
 
     int64_t a = adapters[ix];
 
-    auto rng =
-        adapters | views::enumerate | views::drop(ix + 1) |
-        views::take_while([a](auto const &p) { return (p.second - a) <= 3; }) |
-        views::transform([&cache, &adapters](auto const &p) {
-            return combinations(cache, adapters, p.first);
-        });
+    auto rng = adapters | views::enumerate | views::drop(ix + 1) |
+               views::take_while([a](auto const &p) { return (p.second - a) <= 3; }) |
+               views::transform([&cache, &adapters](auto const &p) { return combinations(cache, adapters, p.first); });
 
     int64_t res = ranges::accumulate(rng, 0L);
 
@@ -44,9 +40,9 @@ int main(int argc, char **argv) {
     vector<int64_t> adapters{};
     {
         ifstream in{argv[1]};
-        ranges::copy(getlines(in) |
-                         views::transform([](auto &str) { return stol(str); }),
-                     ranges::back_inserter(adapters));
+        ranges::copy(
+            getlines(in) | views::transform([](auto &str) { return stol(str); }),
+            ranges::back_inserter(adapters));
     }
 
     adapters.emplace_back(*ranges::max_element(adapters) + 3);

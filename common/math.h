@@ -20,30 +20,29 @@ public:
 
     template <typename... Args> hom(Args... args) : elems{args...} {}
 
-    value_type &operator[](int ix) { return elems[ix]; }
+    value_type &operator[](int ix) {
+        return elems[ix];
+    }
 
-    const value_type &operator[](int ix) const { return elems[ix]; }
+    const value_type &operator[](int ix) const {
+        return elems[ix];
+    }
 
     hom operator+(const hom &other) const {
         hom res{*this};
-        ranges::copy(ranges::views::zip_with(std::plus<value_type>(), elems,
-                                             other.elems),
-                     res.elems.begin());
+        ranges::copy(ranges::views::zip_with(std::plus<value_type>(), elems, other.elems), res.elems.begin());
         return res;
     }
 
     hom operator-(const hom &other) const {
         hom res{*this};
-        ranges::copy(ranges::views::zip_with(std::minus<value_type>(), elems,
-                                             other.elems),
-                     res.elems.begin());
+        ranges::copy(ranges::views::zip_with(std::minus<value_type>(), elems, other.elems), res.elems.begin());
         return res;
     }
 
     hom operator*(const value_type val) const {
         hom res{*this};
-        ranges::copy(elems | ranges::views::transform([val](auto a) { return a * val; }),
-                     res.elems.begin());
+        ranges::copy(elems | ranges::views::transform([val](auto a) { return a * val; }), res.elems.begin());
         return res;
     }
 };
@@ -64,13 +63,16 @@ private:
 
 public:
     template <typename... Args> point(Args... args) : elems{args..., 1} {
-        static_assert(sizeof...(Args) == D,
-                      "Incorrect number of args to point!");
+        static_assert(sizeof...(Args) == D, "Incorrect number of args to point!");
     }
 
     // element access
-    value_type &operator[](int ix) { return elems[ix]; }
-    const value_type &operator[](int ix) const { return elems[ix]; }
+    value_type &operator[](int ix) {
+        return elems[ix];
+    }
+    const value_type &operator[](int ix) const {
+        return elems[ix];
+    }
 
     // arithmetic
     point operator+(const vec<value_type, D> &other) const;
@@ -91,13 +93,16 @@ private:
 
 public:
     template <typename... Args> vec(Args... args) : elems{args..., 0} {
-        static_assert(sizeof...(Args) == D,
-                      "Incorrect number of args to vector!");
+        static_assert(sizeof...(Args) == D, "Incorrect number of args to vector!");
     }
 
     // element access
-    value_type &operator[](int ix) { return elems[ix]; }
-    const value_type &operator[](int ix) const { return elems[ix]; }
+    value_type &operator[](int ix) {
+        return elems[ix];
+    }
+    const value_type &operator[](int ix) const {
+        return elems[ix];
+    }
 
     // arithmetic
     vec operator+(const vec &other) const;
@@ -105,34 +110,28 @@ public:
     vec operator*(const value_type val) const;
 };
 
-template <typename T, int D>
-vec<T, D> point<T, D>::operator-(const point<T, D> &other) const {
+template <typename T, int D> vec<T, D> point<T, D>::operator-(const point<T, D> &other) const {
     return vec<T, D>{elems - other.elems};
 }
 
-template <typename T, int D>
-vec<T, D> vec<T, D>::operator-(const vec<T, D> &other) const {
+template <typename T, int D> vec<T, D> vec<T, D>::operator-(const vec<T, D> &other) const {
     return vec{elems - other.elems};
 }
 
-template <typename T, int D>
-point<T, D> point<T, D>::operator+(const vec<T, D> &other) const {
+template <typename T, int D> point<T, D> point<T, D>::operator+(const vec<T, D> &other) const {
     return point{elems + other.elems};
 }
 
-template <typename T, int D>
-vec<T, D> vec<T, D>::operator+(const vec<T, D> &other) const {
+template <typename T, int D> vec<T, D> vec<T, D>::operator+(const vec<T, D> &other) const {
     return vec{elems - other.elems};
 }
 
-template <typename T, int D>
-vec<T, D> operator*(const T val, const vec<T,D> &v) {
-    return vec*val;
+template <typename T, int D> vec<T, D> operator*(const T val, const vec<T, D> &v) {
+    return vec * val;
 }
 
-template <typename T, int D>
-vec<T, D> vec<T, D>::operator*(const T val) const {
-    return vec{elems*val};
+template <typename T, int D> vec<T, D> vec<T, D>::operator*(const T val) const {
+    return vec{elems * val};
 }
 
 } // namespace aoc

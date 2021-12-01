@@ -40,8 +40,7 @@ int main(int argc, char **argv) {
     {
         ifstream in{argv[1]};
 
-        for (auto [ix, lines] :
-             getlines(in) | views::split("") | views::enumerate) {
+        for (auto [ix, lines] : getlines(in) | views::split("") | views::enumerate) {
             switch (ix) {
             case 0:
                 for (auto const &line : lines) {
@@ -51,8 +50,7 @@ int main(int argc, char **argv) {
 
             case 1:
                 for (auto const &line : lines | views::drop(1)) {
-                    for (auto &match :
-                         line | views::tokenize(regex{"[[:digit:]]+"})) {
+                    for (auto &match : line | views::tokenize(regex{"[[:digit:]]+"})) {
                         me.emplace_back(stoi(match));
                     }
                 }
@@ -61,8 +59,7 @@ int main(int argc, char **argv) {
             case 2:
                 for (auto const &line : lines | views::drop(1)) {
                     auto &ticket = others.emplace_back();
-                    for (auto &match :
-                         line | views::tokenize(regex{"[[:digit:]]+"})) {
+                    for (auto &match : line | views::tokenize(regex{"[[:digit:]]+"})) {
                         ticket.emplace_back(stoi(match));
                     }
                 }
@@ -74,9 +71,7 @@ int main(int argc, char **argv) {
         others | views::transform([&rules](auto const &ticket) {
             return ranges::accumulate(
                 ticket | views::transform([&rules](auto n) {
-                    if (ranges::any_of(rules, [n](auto const &rule) {
-                            return rule.valid(n);
-                        })) {
+                    if (ranges::any_of(rules, [n](auto const &rule) { return rule.valid(n); })) {
                         return 0;
                     } else {
                         return n;

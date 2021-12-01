@@ -15,8 +15,7 @@ string look_and_say(const string &input) {
     // sequence. This relies on the range being lazy.
     string len;
 
-    return input | views::group_by(ranges::equal_to{}) |
-           views::transform([&len](auto rng) {
+    return input | views::group_by(ranges::equal_to{}) | views::transform([&len](auto rng) {
                len = to_string(ranges::size(rng));
                return views::concat(len, views::single(*ranges::begin(rng)));
            }) |

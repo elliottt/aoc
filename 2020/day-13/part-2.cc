@@ -22,11 +22,11 @@ int main(int argc, char **argv) {
 
         getline(in, line);
         ranges::copy(
-            line | views::tokenize(regex{"[[:alnum:]]+"}) | views::enumerate |
-                views::filter([](auto const &p) { return p.second != "x"; }) |
-                views::transform([](auto const &p) -> pair<int64_t, int64_t> {
-                    return {stoi(p.second), p.first};
-                }),
+            line | views::tokenize(regex{"[[:alnum:]]+"}) | views::enumerate | views::filter([](auto const &p) {
+                return p.second != "x";
+            }) | views::transform([](auto const &p) -> pair<int64_t, int64_t> {
+                return {stoi(p.second), p.first};
+            }),
             ranges::back_inserter(busses));
     }
 

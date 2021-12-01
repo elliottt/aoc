@@ -15,9 +15,7 @@ int main(int argc, char **argv) {
 
     {
         ifstream in{argv[1]};
-        numbers = getlines(in) |
-                  views::transform([](auto &str) { return stol(str); }) |
-                  to<vector>();
+        numbers = getlines(in) | views::transform([](auto &str) { return stol(str); }) | to<vector>();
     }
 
     long invalid{0};

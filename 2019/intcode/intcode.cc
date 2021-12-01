@@ -30,9 +30,13 @@ machine machine::load(istream &in) {
     return res;
 }
 
-int machine::read(machine::address addr) const { return memory[addr]; }
+int machine::read(machine::address addr) const {
+    return memory[addr];
+}
 
-void machine::write(machine::address addr, int value) { memory[addr] = value; }
+void machine::write(machine::address addr, int value) {
+    memory[addr] = value;
+}
 
 tuple<int, int, int> machine::decode3(int pc) {
     return {

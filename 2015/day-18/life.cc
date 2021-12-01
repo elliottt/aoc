@@ -10,8 +10,7 @@ using namespace ranges;
 
 namespace aoc {
 
-life::life(int w, int h)
-    : w{w}, h{h}, cells(w * h, false), next(w * h, false) {}
+life::life(int w, int h) : w{w}, h{h}, cells(w * h, false), next(w * h, false) {}
 
 bool life::get(int x, int y) const {
     if (auto ix = get_index(x, y)) {
@@ -39,15 +38,14 @@ int life::neighborhood(int x, int y) const {
     auto xs = views::ints(x - 1, x + 2);
     auto ys = views::ints(y - 1, y + 2);
 
-    return ranges::count_if(views::cartesian_product(xs, ys),
-                            [*this, x, y](auto p) {
-                                auto &[a, b] = p;
-                                if (a != x || b != y) {
-                                    return get(a, b);
-                                } else {
-                                    return false;
-                                }
-                            });
+    return ranges::count_if(views::cartesian_product(xs, ys), [*this, x, y](auto p) {
+        auto &[a, b] = p;
+        if (a != x || b != y) {
+            return get(a, b);
+        } else {
+            return false;
+        }
+    });
 }
 
 void life::step() {

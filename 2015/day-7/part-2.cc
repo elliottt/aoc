@@ -27,8 +27,7 @@ int main(int argc, char **argv) {
     }
 
     auto ix = state.lookup("b");
-    state.state[ix] =
-        wires::node(wires::node::op::VAL, wires::operand::literal(956));
+    state.state[ix] = wires::node(wires::node::op::VAL, wires::operand::literal(956));
 
     fmt::print("part 2: {}\n", state.get_value(state.lookup("a")));
 

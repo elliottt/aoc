@@ -29,10 +29,10 @@ int main(int argc, char **argv) {
         board.step();
 
         // these lights are stuck
-        board.set(0,0,true);
-        board.set(0,99,true);
-        board.set(99,0,true);
-        board.set(99,99,true);
+        board.set(0, 0, true);
+        board.set(0, 99, true);
+        board.set(99, 0, true);
+        board.set(99, 99, true);
     });
 
     fmt::print("part 1: {}\n", ranges::count(board.cells, true));

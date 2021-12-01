@@ -6,9 +6,13 @@ using namespace std;
 using json = nlohmann::json;
 
 struct counter : nlohmann::json_sax<json> {
-    virtual bool null() final { return true; }
+    virtual bool null() final {
+        return true;
+    }
 
-    virtual bool boolean(bool val) final { return true; }
+    virtual bool boolean(bool val) final {
+        return true;
+    }
 
     virtual bool number_integer(number_integer_t val) final {
         total += val;
@@ -24,22 +28,36 @@ struct counter : nlohmann::json_sax<json> {
         return true;
     }
 
-    virtual bool string(string_t &val) final { return true; }
+    virtual bool string(string_t &val) final {
+        return true;
+    }
 
-    virtual bool binary(binary_t &val) final { return true; }
+    virtual bool binary(binary_t &val) final {
+        return true;
+    }
 
-    virtual bool start_object(std::size_t elements) final { return true; }
+    virtual bool start_object(std::size_t elements) final {
+        return true;
+    }
 
-    virtual bool end_object() final { return true; }
+    virtual bool end_object() final {
+        return true;
+    }
 
-    virtual bool start_array(std::size_t elements) final { return true; }
+    virtual bool start_array(std::size_t elements) final {
+        return true;
+    }
 
-    virtual bool end_array() final { return true; }
+    virtual bool end_array() final {
+        return true;
+    }
 
-    virtual bool key(string_t &val) final { return true; }
+    virtual bool key(string_t &val) final {
+        return true;
+    }
 
-    virtual bool parse_error(std::size_t position, const string_t &last_token,
-                             const nlohmann::detail::exception &e) final {
+    virtual bool
+    parse_error(std::size_t position, const string_t &last_token, const nlohmann::detail::exception &e) final {
         return false;
     }
 

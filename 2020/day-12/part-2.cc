@@ -1,8 +1,8 @@
-#include <range/v3/all.hpp>
 #include <fmt/core.h>
 #include <fstream>
-#include <vector>
+#include <range/v3/all.hpp>
 #include <string>
+#include <vector>
 
 using std::ifstream, std::string, std::vector;
 using namespace ranges;
@@ -19,7 +19,7 @@ struct position {
             break;
 
         case 90:
-            std::swap(dx,dy);
+            std::swap(dx, dy);
             if (val < 0) {
                 dy = -dy;
             } else {
@@ -33,7 +33,7 @@ struct position {
             break;
 
         case 270:
-            std::swap(dx,dy);
+            std::swap(dx, dy);
             if (val < 0) {
                 dx = -dx;
             } else {

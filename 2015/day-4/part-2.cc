@@ -7,7 +7,7 @@
 
 using namespace std;
 
-struct count_zeros{
+struct count_zeros {
 
     bool only_zeros;
     int zeros;
@@ -36,8 +36,7 @@ struct count_zeros{
     }
 };
 
-template <>
-struct std::iterator_traits<count_zeros> {
+template <> struct std::iterator_traits<count_zeros> {
     using iterator_category = std::output_iterator_tag;
     using value_type = void;
 };
@@ -52,9 +51,7 @@ int md5_leading_zeros(boost::uuids::detail::md5 hash, const string &input) {
 
     const auto intDigest = reinterpret_cast<const int *>(&digest);
 
-    auto zeros = boost::algorithm::hex(intDigest,
-                          intDigest + (sizeof(md5::digest_type) / sizeof(int)),
-                          count_zeros{});
+    auto zeros = boost::algorithm::hex(intDigest, intDigest + (sizeof(md5::digest_type) / sizeof(int)), count_zeros{});
 
     return zeros.zeros;
 }
