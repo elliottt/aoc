@@ -19,7 +19,7 @@ int main(int argc, char **argv) {
             ranges::back_inserter(depths));
     }
 
-    fmt::print("part 1: {}\n", ranges::count_if(views::zip(depths, views::drop(depths, 1)), [](auto p) {
+    fmt::print("part 1: {}\n", ranges::count_if(views::zip(depths, views::tail(depths)), [](auto p) {
                    auto [a, b] = p;
                    return a < b;
                }));
@@ -30,7 +30,7 @@ int main(int argc, char **argv) {
         views::drop(depths, 1),
         views::drop(depths, 2));
 
-    fmt::print("part 2: {}\n", ranges::count_if(views::zip(windows, views::drop(windows, 1)), [](auto p) {
+    fmt::print("part 2: {}\n", ranges::count_if(views::zip(windows, views::tail(windows)), [](auto p) {
                    auto [a, b] = p;
                    return a < b;
                }));
