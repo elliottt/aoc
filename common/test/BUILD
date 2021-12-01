@@ -10,4 +10,5 @@ cc_test(
     srcs = ["test_math.cc"],
     deps = ["//common", "@fmt", "@doctest", "@doctest//:doctest_main"],
     copts = COPTS,
+    visibility = ["//visibility:public"],
 )

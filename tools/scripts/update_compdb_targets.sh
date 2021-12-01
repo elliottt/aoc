@@ -11,7 +11,7 @@ cat <<EOF > "$tmpfile"
 TARGETS = [
 EOF
 
-bazel query 'kind("cc_(binary|library|test)", //...)' | \
+bazelisk query 'kind("cc_(binary|library|test)", //...)' | \
   sort | \
   while read target; do
     echo "  '${target}'," >> "$tmpfile"

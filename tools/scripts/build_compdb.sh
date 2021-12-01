@@ -6,9 +6,9 @@ set -euo pipefail
 
 root="$(dirname "${BASH_SOURCE[0]}")/../.."
 
-outfile="$(bazel info bazel-bin)/compile_commands.json"
-execroot="$(bazel info execution_root)"
+outfile="$(bazelisk info bazel-bin)/compile_commands.json"
+execroot="$(bazelisk info execution_root)"
 
-bazel build //:aoc_compdb
+bazelisk build //:aoc_compdb
 
 sed "s|__EXEC_ROOT__|${execroot}|" "$outfile" > "$root/compile_commands.json"
