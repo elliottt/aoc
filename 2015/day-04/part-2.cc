@@ -5,7 +5,7 @@
 #include <iterator>
 #include <range/v3/all.hpp>
 
-using namespace std;
+namespace views = ranges::views;
 
 struct count_zeros {
 
@@ -41,7 +41,7 @@ template <> struct std::iterator_traits<count_zeros> {
     using value_type = void;
 };
 
-int md5_leading_zeros(boost::uuids::detail::md5 hash, const string &input) {
+int md5_leading_zeros(boost::uuids::detail::md5 hash, const std::string &input) {
     using boost::uuids::detail::md5;
 
     hash.process_bytes(input.data(), input.size());
@@ -57,16 +57,14 @@ int md5_leading_zeros(boost::uuids::detail::md5 hash, const string &input) {
 }
 
 int main(int argc, char **argv) {
-    using namespace ranges;
-
     boost::uuids::detail::md5 hash;
     hash.process_bytes("iwrupvqb", 8);
 
-    string input;
+    std::string input;
     input.reserve(20);
 
     for (auto i : views::iota(1)) {
-        input = to_string(i);
+        input = std::to_string(i);
         if (md5_leading_zeros(hash, input) == 6) {
             fmt::print("part-2: {}\n", i);
             break;
