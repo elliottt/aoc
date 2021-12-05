@@ -7,15 +7,13 @@
 
 #include <range/v3/all.hpp>
 
-using namespace std;
-
-int paper_required(string line) {
+int paper_required(std::string line) {
     auto a = line.find('x');
     auto b = line.find('x', a + 1);
 
     auto l = stoi(line.substr(0, a));
     auto w = stoi(line.substr(a + 1, b - a));
-    auto h = stoi(line.substr(b + 1, string::npos));
+    auto h = stoi(line.substr(b + 1, std::string::npos));
 
     auto lw = l * w;
     auto wh = w * h;
@@ -31,10 +29,10 @@ int main(int argc, char **argv) {
         return 1;
     }
 
-    vector<string> input;
+    std::vector<std::string> input;
     {
-        ifstream in{argv[1]};
-        std::copy(istream_iterator<string>{in}, istream_iterator<string>{}, back_inserter(input));
+        std::ifstream in{argv[1]};
+        ranges::copy(ranges::getlines(in), ranges::back_inserter(input));
     }
 
     fmt::print("part 1: {}\n", ranges::accumulate(input | ranges::views::transform(paper_required), 0));

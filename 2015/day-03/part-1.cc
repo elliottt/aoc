@@ -7,8 +7,6 @@
 #include <string>
 #include <utility>
 
-using namespace std;
-
 struct point {
     int x;
     int y;
@@ -50,11 +48,11 @@ int main(int argc, char **argv) {
         return 1;
     }
 
-    string directions;
+    std::string directions;
 
     {
-        ifstream in{argv[1]};
-        std::copy(istream_iterator<char>{in}, istream_iterator<char>{}, std::back_inserter(directions));
+        std::ifstream in{argv[1]};
+        ranges::copy(ranges::istream<char>(in), ranges::back_inserter(directions));
     }
 
     point acc{0, 0};
@@ -63,7 +61,7 @@ int main(int argc, char **argv) {
                                                         acc = res;
                                                         return res;
                                                     })) |
-                  ranges::to<vector<point>>();
+                  ranges::to<std::vector<point>>();
 
     points |= actions::sort(&point::operator<);
 
