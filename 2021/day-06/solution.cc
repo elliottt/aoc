@@ -19,7 +19,7 @@ uint64_t population_after(std::vector<uint8_t> lanternfish, int days) {
 
     // iterate over days
     uint64_t population = lanternfish.size();
-    for (auto [i, d] : views::enumerate(future)) {
+    for (auto [i, d] : future | views::enumerate | views::take(days+1)) {
         auto day = i % 7;
 
         // these new fish would reproduce today
@@ -29,10 +29,6 @@ uint64_t population_after(std::vector<uint8_t> lanternfish, int days) {
         future[i+9] += weekly[day];
 
         population += weekly[day];
-
-        if (i == days) {
-            break;
-        }
     }
 
     return population;
