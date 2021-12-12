@@ -1,0 +1,55 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+
+year=${1}
+day=${2}
+
+if [ -z "${year}" ] || [ -z "${day}" ]; then
+  cat << EOF
+Usage: ./tools/scripts/new_day.sh <year> <day>
+EOF
+exit 1
+fi
+
+root="$(dirname "${BASH_SOURCE[0]}")/../.."
+
+solution="${root}/${year}/day-${day}"
+
+mkdir -p "${solution}"
+
+cat << EOF > "${solution}/BUILD"
+load("//rules:solution.bzl", "aoc_solutions")
+load("//rules:config.bzl", "COPTS")
+
+aoc_solutions(
+    name = "day-${day}",
+    input = "input.txt",
+    solutions = [ "solution" ],
+)
+
+cc_binary(
+    name = "solution",
+    srcs = ["solution.cc"],
+    deps = ["@range-v3", "@fmt"],
+    copts = COPTS,
+    visibility = ["//visibility:public"],
+)
+EOF
+
+cat << EOF > "${solution}/solution.cc"
+#include <fstream>
+#include <range/v3/all.hpp>
+#include <fmt/format.h>
+#include <vector>
+#include <string>
+
+int main(int argc, char **argv) {
+    if (argc != 2) {
+        return 0;
+    }
+
+    return 0;
+}
+EOF
