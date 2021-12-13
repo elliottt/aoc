@@ -17,6 +17,11 @@ root="$(dirname "${BASH_SOURCE[0]}")/../.."
 
 solution="${root}/${year}/day-${day}"
 
+if [ -d "${solution}" ]; then
+  echo "solution already exists in ${solution}!"
+  exit 1
+fi
+
 mkdir -p "${solution}"
 
 cat << EOF > "${solution}/BUILD"
