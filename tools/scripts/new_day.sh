@@ -45,6 +45,8 @@ cat << EOF > "${solution}/solution.cc"
 #include <vector>
 #include <string>
 
+namespace views = ranges::views;
+
 int main(int argc, char **argv) {
     if (argc != 2) {
         return 0;
