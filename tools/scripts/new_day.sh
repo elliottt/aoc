@@ -37,7 +37,7 @@ aoc_solutions(
 cc_binary(
     name = "solution",
     srcs = ["solution.cc"],
-    deps = ["@range-v3", "@fmt"],
+    deps = ["//common", "@range-v3", "@fmt"],
     copts = COPTS,
     visibility = ["//visibility:public"],
 )
