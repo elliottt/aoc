@@ -76,7 +76,7 @@ int main(int argc, char **argv) {
     auto pos = ranges::accumulate(deltas, Pos{});
     fmt::print("part 1: {}\n", pos.x * pos.y);
 
-    auto with_aim = ranges::accumulate(deltas , WithAim{});
+    auto with_aim = ranges::accumulate(deltas, WithAim{});
     fmt::print("part 2: {}\n", with_aim.pos.x * with_aim.pos.y);
 
     return 0;
