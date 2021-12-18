@@ -4,57 +4,11 @@
 #include <string>
 #include <vector>
 
-namespace views = ranges::views;
+#include "common/pos.h"
 
 using grid = std::vector<int>;
 
-struct pos final {
-    int x = 0;
-    int y = 0;
-
-    pos(int x, int y) : x{x}, y{y} {}
-
-    bool operator==(const pos &other) const {
-        return this->x == other.x && this->y == other.y;
-    }
-};
-
-struct bounds final {
-    int width = 0;
-    int height = 0;
-
-    bounds() = default;
-    bounds(int width, int height) : width{width}, height{height} {}
-
-    size_t size() const {
-        return this->width * this->height;
-    }
-
-    size_t index(pos p) const {
-        return p.y * height + p.x;
-    }
-
-    auto positions() const {
-        auto ys = views::iota(0, this->height);
-        auto xs = views::iota(0, this->width);
-        return views::cartesian_product(ys, xs) | views::transform([](auto p) {
-                   auto [y, x] = p;
-                   return pos(x, y);
-               });
-    }
-
-    auto neighbors(pos p) const {
-        auto xs = views::iota(std::max(p.x - 1, 0), std::min(this->width, p.x + 2));
-        auto ys = views::iota(std::max(p.y - 1, 0), std::min(this->height, p.y + 2));
-        return views::cartesian_product(ys, xs) | views::transform([](auto p) {
-                   auto [y, x] = p;
-                   return pos{x, y};
-               }) |
-               views::remove(p);
-    }
-};
-
-uint64_t step(bounds b, grid &octopi) {
+uint64_t step(aoc::bounds b, grid &octopi) {
     uint64_t flashes = 0;
 
     std::vector<int> work(b.size(), 1);
@@ -95,7 +49,7 @@ int main(int argc, char **argv) {
         return 0;
     }
 
-    bounds b;
+    aoc::bounds b;
     grid input;
     {
         std::ifstream in{argv[1]};
