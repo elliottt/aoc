@@ -2,8 +2,7 @@
 
 ## Building
 
-This assumes a working C++20 compiler. On WSL with Ubuntu, I set the CC
-environment variable to `clang`.
+This assumes a version of clang with c++20 support.
 
 ## Running a solution
 
@@ -11,5 +10,5 @@ Each directory has a rule with the same name, so you can just use `bazel run` to
 run both parts of the solution.
 
 ```
-CC=clang bazel run -c opt 2020/day-1
+bazelisk run -c opt 2020/day-01
 ```
