@@ -127,7 +127,7 @@ template <typename T, int D> vec<T, D> vec<T, D>::operator+(const vec<T, D> &oth
 }
 
 template <typename T, int D> vec<T, D> operator*(const T val, const vec<T, D> &v) {
-    return vec * val;
+    return v * val;
 }
 
 template <typename T, int D> vec<T, D> vec<T, D>::operator*(const T val) const {

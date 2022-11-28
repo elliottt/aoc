@@ -1,9 +1,7 @@
 #include <string>
 #include <vector>
 
-#include "2020/day-8/machine.h"
-
-using namespace std;
+#include "2020/day-08/machine.h"
 
 namespace aoc {
 
@@ -11,7 +9,7 @@ instr::instr() : visited{false}, op{instr_op::nop}, arg{0} {}
 
 instr::instr(instr_op op, int arg) : visited{false}, op{op}, arg{arg} {}
 
-instr instr::parse(const string &str) {
+instr instr::parse(const std::string &str) {
     instr res{};
 
     auto instr = str.substr(0, 3);

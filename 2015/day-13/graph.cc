@@ -9,12 +9,11 @@
 
 #include "graph.h"
 
-using namespace ranges;
-using namespace std;
+namespace views = ranges::views;
 
 namespace aoc {
 
-node::node(const string &name) : name{name}, edges{} {}
+node::node(const std::string &name) : name{name}, edges{} {}
 
 void node::add_edge(id other, int weight) {
     if (edges.size() <= other) {
@@ -25,7 +24,7 @@ void node::add_edge(id other, int weight) {
 
 graph::graph() : nodes{} {}
 
-node::id graph::get_node(const string &name) {
+node::id graph::get_node(const std::string &name) {
     auto it = ranges::find_if(nodes, [&name](auto &n) { return n.name == name; });
     if (it == nodes.end()) {
         auto ix = nodes.size();
@@ -40,8 +39,8 @@ void graph::add_edge(node::id from, node::id to, int weight) {
     nodes[from].add_edge(to, weight);
 }
 
-void graph::parse_edge(const string &line) {
-    auto words = line | views::tokenize(regex{"[\\w]+"}) | to<vector<string>>();
+void graph::parse_edge(const std::string &line) {
+    auto words = line | views::tokenize(std::regex{"[\\w]+"}) | ranges::to<std::vector<std::string>>();
 
     auto who = words[0];
     auto other = words.back();
@@ -62,9 +61,9 @@ int graph::max_change() const {
     struct path {
         node::id id;
         int change;
-        shared_ptr<path> parent;
+        std::shared_ptr<path> parent;
 
-        path(node::id id, int change, shared_ptr<path> &&parent) : id{id}, change{change}, parent{parent} {}
+        path(node::id id, int change, std::shared_ptr<path> &&parent) : id{id}, change{change}, parent{parent} {}
 
         bool seen(node::id other) {
             return id == other || (parent && parent->seen(other));
@@ -101,9 +100,9 @@ int graph::max_change() const {
         }
     };
 
-    deque<shared_ptr<path>> work{};
+    std::deque<std::shared_ptr<path>> work{};
 
-    auto push_work = [*this, &work](node::id id, shared_ptr<path> parent) {
+    auto push_work = [*this, &work](node::id id, std::shared_ptr<path> parent) {
         int change = 0;
         if (parent != nullptr) {
             change += parent->change + pair_change(id, parent->id);

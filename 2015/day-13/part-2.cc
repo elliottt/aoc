@@ -5,8 +5,6 @@
 
 #include "2015/day-13/graph.h"
 
-using namespace std;
-
 int main(int argc, char **argv) {
     if (argc != 2) {
         return 1;
@@ -15,7 +13,7 @@ int main(int argc, char **argv) {
     aoc::graph g;
 
     {
-        ifstream in{argv[1]};
+        std::ifstream in{argv[1]};
         for (auto &line : ranges::getlines(in)) {
             g.parse_edge(line);
         }

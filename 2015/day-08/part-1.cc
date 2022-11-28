@@ -4,9 +4,7 @@
 #include <regex>
 #include <string>
 
-using namespace std;
-
-int count_characters(const string &line) {
+int count_characters(const std::string &line) {
     auto in_memory = 0;
 
     // start after the first double-quote
@@ -36,15 +34,15 @@ int main(int argc, char **argv) {
         return 1;
     }
 
-    string input;
+    std::string input;
     {
-        ifstream in{argv[1]};
-        in >> noskipws;
+        std::ifstream in{argv[1]};
+        in >> std::noskipws;
         ranges::copy(ranges::istream<char>(in), ranges::back_inserter(input));
     }
 
     auto total = ranges::accumulate(
-        input | ranges::views::tokenize(regex{"[^\n]+\n"}) | ranges::views::transform(count_characters),
+        input | ranges::views::tokenize(std::regex{"[^\n]+\n"}) | ranges::views::transform(count_characters),
         0);
 
     fmt::print("part 1: {}\n", total);

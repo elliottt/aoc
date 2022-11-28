@@ -4,10 +4,9 @@
 #include <string>
 #include <vector>
 
-using namespace ranges;
-using namespace std;
+namespace views = ranges::views;
 
-auto combinations(const vector<int> &sizes, int acc, int off) {
+auto combinations(const std::vector<int> &sizes, int acc, int off) {
     if (acc == 150) {
         return 1;
     }
@@ -25,10 +24,11 @@ int main(int argc, char **argv) {
         return 1;
     }
 
-    vector<int> sizes{};
+    std::vector<int> sizes{};
     {
-        ifstream in{argv[1]};
-        sizes = getlines(in) | views::transform([](auto &line) { return stoi(line); }) | to<vector>();
+        std::ifstream in{argv[1]};
+        sizes =
+            ranges::getlines(in) | views::transform([](auto &line) { return stoi(line); }) | ranges::to<std::vector>();
     }
 
     fmt::print("part 1: {}\n", combinations(sizes, 0, 0));

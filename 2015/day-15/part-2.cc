@@ -5,8 +5,7 @@
 #include <string>
 #include <vector>
 
-using namespace ranges;
-using namespace std;
+namespace views = ranges::views;
 
 struct properties {
     int capacity;
@@ -39,11 +38,11 @@ struct properties {
 };
 
 struct ingredient {
-    string name;
+    std::string name;
     properties props;
 
-    static ingredient parse(const string &line) {
-        auto words = line | views::tokenize(regex{"[\\w-]+"}) | to<vector>();
+    static ingredient parse(const std::string &line) {
+        auto words = line | views::tokenize(std::regex{"[\\w-]+"}) | ranges::to<std::vector>();
         return {words[0], {stoi(words[2]), stoi(words[4]), stoi(words[6]), stoi(words[8]), stoi(words[10])}};
     }
 
@@ -63,7 +62,7 @@ struct ingredient {
     }
 };
 
-bool validate(const vector<ingredient> &ingredients, const vector<int> &amounts) {
+bool validate(const std::vector<ingredient> &ingredients, const std::vector<int> &amounts) {
 
     auto summed = ranges::accumulate(
         views::zip_with([](auto &i, auto amount) { return i.props * amount; }, ingredients, amounts),
@@ -84,12 +83,12 @@ int main(int argc, char **argv) {
         return 1;
     }
 
-    vector<ingredient> ingredients{};
+    std::vector<ingredient> ingredients{};
 
     {
-        ifstream in{argv[1]};
-        ingredients =
-            getlines(in) | views::transform([](auto &line) { return ingredient::parse(line); }) | to<vector>();
+        std::ifstream in{argv[1]};
+        ingredients = ranges::getlines(in) | views::transform([](auto &line) { return ingredient::parse(line); }) |
+                      ranges::to<std::vector>();
     }
 
     auto max_val = 0;

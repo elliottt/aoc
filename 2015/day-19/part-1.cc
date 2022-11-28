@@ -8,20 +8,19 @@
 #include <set>
 #include <vector>
 
-using namespace ranges;
-using namespace std;
+namespace views = ranges::views;
 
 int main(int argc, char **argv) {
     if (argc != 2) {
         return 1;
     }
 
-    map<string, set<string>> subs;
-    string input;
+    std::map<std::string, std::set<std::string>> subs;
+    std::string input;
 
     {
-        ifstream in{argv[1]};
-        auto lines = getlines(in) | to<vector>();
+        std::ifstream in{argv[1]};
+        auto lines = ranges::getlines(in) | ranges::to<std::vector>();
 
         for (auto &line : lines | views::delimit("")) {
             auto pos = line.find(" => ");
@@ -33,10 +32,10 @@ int main(int argc, char **argv) {
         input = lines.back();
     }
 
-    set<string> molecules;
+    std::set<std::string> molecules;
 
     for (auto &sub : subs) {
-        for (auto &match : input | views::tokenize(regex{"[[:upper:]][[:lower:]]*"})) {
+        for (auto &match : input | views::tokenize(std::regex{"[[:upper:]][[:lower:]]*"})) {
             if (sub.first == match.str()) {
                 auto start = std::distance(input.begin(), match.first);
                 for (auto &replacement : sub.second) {

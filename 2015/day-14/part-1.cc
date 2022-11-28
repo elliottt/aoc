@@ -3,17 +3,16 @@
 #include <range/v3/all.hpp>
 #include <regex>
 
-using namespace ranges;
-using namespace std;
+namespace views = ranges::views;
 
 struct reindeer {
-    string name;
+    std::string name;
     int speed;
     int duration;
     int rest;
 
-    static reindeer parse(const string &line) {
-        auto words = line | views::tokenize(regex{"[\\w]+"}) | to<vector<string>>();
+    static reindeer parse(const std::string &line) {
+        auto words = line | views::tokenize(std::regex{"[\\w]+"}) | ranges::to<std::vector<std::string>>();
         return reindeer{words[0], stoi(words[3]), stoi(words[7]), stoi(words[14])};
     }
 
@@ -49,7 +48,7 @@ struct position {
     }
 };
 
-void step(const vector<reindeer> &racers, vector<position> &state) {
+void step(const std::vector<reindeer> &racers, std::vector<position> &state) {
     for (auto const &[racer, pos] : views::zip(racers, state)) {
         pos.step(racer);
     }
@@ -60,13 +59,13 @@ int main(int argc, char **argv) {
         return 1;
     }
 
-    vector<reindeer> racers;
-    vector<position> state;
+    std::vector<reindeer> racers;
+    std::vector<position> state;
 
     {
-        ifstream in{argv[1]};
-        in >> noskipws;
-        for (auto const &line : getlines(in)) {
+        std::ifstream in{argv[1]};
+        in >> std::noskipws;
+        for (auto const &line : ranges::getlines(in)) {
             racers.emplace_back(reindeer::parse(line));
             state.emplace_back(position::from_reindeer(racers.back()));
         }

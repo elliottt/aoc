@@ -7,14 +7,13 @@
 #include <string>
 #include <vector>
 
-using namespace ranges;
-using namespace std;
+namespace views = ranges::views;
 
-using sue = map<string, int>;
+using sue = std::map<std::string, int>;
 
-sue parse_sue(const string &line) {
+sue parse_sue(const std::string &line) {
     sue res{};
-    auto words = line | views::tokenize(regex{"[\\w]+"}) | to<vector<string>>();
+    auto words = line | views::tokenize(std::regex{"[\\w]+"}) | ranges::to<std::vector<std::string>>();
     for (auto const &p : words | views::drop(2) | views::chunk(2)) {
         res[p[0]] = stoi(p[1]);
     }
@@ -46,11 +45,11 @@ int main(int argc, char **argv) {
         {"perfumes", 1},
     };
 
-    vector<sue> sues{};
+    std::vector<sue> sues{};
 
     {
-        ifstream in{argv[1]};
-        for (auto const &line : getlines(in)) {
+        std::ifstream in{argv[1]};
+        for (auto const &line : ranges::getlines(in)) {
             sues.emplace_back(parse_sue(line));
         }
     }

@@ -9,8 +9,7 @@
 #include <range/v3/view/istream.hpp>
 #include <range/v3/view/transform.hpp>
 
-using namespace ranges;
-using namespace std;
+namespace views = ranges::views;
 
 int compute_fuel(int mass) {
     return std::max(0, (mass / 3) - 2);
@@ -21,8 +20,8 @@ int main(int argc, char **argv) {
         return 0;
     }
 
-    ifstream file{argv[1]};
-    int total_fuel = accumulate(ranges::istream<int>(file) | views::transform(compute_fuel), 0);
+    std::ifstream file{argv[1]};
+    int total_fuel = ranges::accumulate(ranges::istream<int>(file) | views::transform(compute_fuel), 0);
 
     fmt::print("Total fuel required: {}\n", total_fuel);
 

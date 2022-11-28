@@ -4,9 +4,7 @@
 #include <string>
 #include <vector>
 
-#include "2015/day-9/graph.h"
-
-using namespace std;
+#include "2015/day-09/graph.h"
 
 int main(int argc, char **argv) {
     if (argc != 2) {
@@ -16,9 +14,9 @@ int main(int argc, char **argv) {
     aoc::graph g{};
 
     {
-        ifstream in{argv[1]};
-        in >> noskipws;
-        string line;
+        std::ifstream in{argv[1]};
+        in >> std::noskipws;
+        std::string line;
         while (!in.eof()) {
             line.clear();
             getline(in, line);

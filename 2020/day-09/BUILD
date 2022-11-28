@@ -2,7 +2,7 @@ load("//rules:solution.bzl", "aoc_solutions")
 load("//rules:config.bzl", "COPTS")
 
 aoc_solutions(
-    name = "day-9",
+    name = "day-09",
     input = "input.txt",
     solutions = [ "part-1", "part-2" ],
 )

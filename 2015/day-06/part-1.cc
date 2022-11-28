@@ -7,16 +7,15 @@
 #include <regex>
 #include <string>
 
-using namespace std;
-
-pair<int, int> parse_point(string str) {
+std::pair<int, int> parse_point(std::string str) {
     auto a = stoi(str);
     auto b = stoi(str.substr(str.rfind(',') + 1));
     return {a, b};
 }
 
-void interpret(vector<bool> &lights, string line) {
-    vector<string> words = line | ranges::views::tokenize(regex{"[\\w,]+"}) | ranges::to<vector<string>>();
+void interpret(std::vector<bool> &lights, std::string line) {
+    std::vector<std::string> words =
+        line | ranges::views::tokenize(std::regex{"[\\w,]+"}) | ranges::to<std::vector<std::string>>();
 
     if (words[0] == "toggle") {
         auto [x1, y1] = parse_point(words[1]);
@@ -44,16 +43,16 @@ int main(int argc, char **argv) {
         return 1;
     }
 
-    vector<bool> lights(1000 * 1000, false);
+    std::vector<bool> lights(1000 * 1000, false);
 
-    string input;
+    std::string input;
     {
-        ifstream in{argv[1]};
-        in >> noskipws;
+        std::ifstream in{argv[1]};
+        in >> std::noskipws;
         ranges::copy(ranges::istream<char>(in), ranges::back_inserter(input));
     }
 
-    for (auto line : input | ranges::views::tokenize(regex{".*\n"})) {
+    for (auto line : input | ranges::views::tokenize(std::regex{".*\n"})) {
         interpret(lights, line);
     }
 

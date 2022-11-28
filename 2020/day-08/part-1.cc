@@ -5,7 +5,7 @@
 #include <string>
 #include <vector>
 
-#include "2020/day-8/machine.h"
+#include "2020/day-08/machine.h"
 
 using std::ifstream, std::vector;
 using namespace ranges;

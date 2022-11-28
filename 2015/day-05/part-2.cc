@@ -5,10 +5,8 @@
 #include <range/v3/all.hpp>
 #include <string>
 
-using namespace std;
-
 // substring occurrences like `...ab...ab...`
-bool contains_double_repeat(string str) {
+bool contains_double_repeat(std::string str) {
     using namespace ranges;
 
     // indices for possible two-letter sequence starts
@@ -23,7 +21,7 @@ bool contains_double_repeat(string str) {
 }
 
 // substring occurrences like `...xyx...`
-bool contains_one_letter_repeat(string str) {
+bool contains_one_letter_repeat(std::string str) {
     using namespace ranges;
 
     auto ixs = views::ints(1, static_cast<int>(str.size()) - 1);
@@ -33,7 +31,7 @@ bool contains_one_letter_repeat(string str) {
     return ranges::find_if(ixs, has_one_letter_repeat) != ranges::end(ixs);
 }
 
-bool is_nice(string str) {
+bool is_nice(std::string str) {
     return contains_double_repeat(str) && contains_one_letter_repeat(str);
 }
 
@@ -42,8 +40,8 @@ int main(int argc, char **argv) {
         return 1;
     }
 
-    ifstream in{argv[1]};
-    fmt::print("part 2: {}\n", ranges::count_if(ranges::istream<string>(in), is_nice));
+    std::ifstream in{argv[1]};
+    fmt::print("part 2: {}\n", ranges::count_if(ranges::istream<std::string>(in), is_nice));
 
     return 0;
 }

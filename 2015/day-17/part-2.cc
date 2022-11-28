@@ -6,12 +6,11 @@
 #include <string>
 #include <vector>
 
-using namespace ranges;
-using namespace std;
+namespace views = ranges::views;
 
 template <typename Comb, typename Proj>
 auto combinations_aux(
-    const vector<int> &sizes,
+    const std::vector<int> &sizes,
     const int max_count,
     int acc,
     int count,
@@ -34,7 +33,7 @@ auto combinations_aux(
 }
 
 template <typename Comb, typename Proj>
-auto combinations(const vector<int> &sizes, int max_count, int def, Comb &&combine, Proj &&project) {
+auto combinations(const std::vector<int> &sizes, int max_count, int def, Comb &&combine, Proj &&project) {
     return combinations_aux(
         sizes,
         max_count,
@@ -51,10 +50,11 @@ int main(int argc, char **argv) {
         return 1;
     }
 
-    vector<int> sizes{};
+    std::vector<int> sizes{};
     {
-        ifstream in{argv[1]};
-        sizes = getlines(in) | views::transform([](auto &line) { return stoi(line); }) | to<vector>();
+        std::ifstream in{argv[1]};
+        sizes =
+            ranges::getlines(in) | views::transform([](auto &line) { return stoi(line); }) | ranges::to<std::vector>();
     }
 
     auto min_containers = combinations(sizes, sizes.size(), INT_MAX, ranges::min, [](int count) { return count; });

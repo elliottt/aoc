@@ -4,9 +4,7 @@
 #include <regex>
 #include <string>
 
-using namespace std;
-
-int count_encoded_characters(const string &line) {
+int count_encoded_characters(const std::string &line) {
     // trim off the newline
     auto code = line.size() - 1;
 
@@ -26,7 +24,7 @@ int count_encoded_characters(const string &line) {
     return encoded - code;
 }
 
-int test(string str) {
+int test(std::string str) {
     auto enc = count_encoded_characters(str + "\n");
     fmt::print("{} = {}\n", str, enc);
     return enc;
@@ -37,15 +35,15 @@ int main(int argc, char **argv) {
         return 1;
     }
 
-    string input;
+    std::string input;
     {
-        ifstream in{argv[1]};
-        in >> noskipws;
+        std::ifstream in{argv[1]};
+        in >> std::noskipws;
         ranges::copy(ranges::istream<char>(in), ranges::back_inserter(input));
     }
 
     auto total = ranges::accumulate(
-        input | ranges::views::tokenize(regex{"[^\n]+\n"}) | ranges::views::transform(count_encoded_characters),
+        input | ranges::views::tokenize(std::regex{"[^\n]+\n"}) | ranges::views::transform(count_encoded_characters),
         0);
 
     fmt::print("part 2: {}\n", total);

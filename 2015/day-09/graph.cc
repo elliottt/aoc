@@ -3,11 +3,9 @@
 
 #include "graph.h"
 
-using namespace std;
-
 namespace aoc {
 
-node::node(const string &name) : name{name} {}
+node::node(const std::string &name) : name{name} {}
 
 void node::add_edge(int other, int dist) {
     if (other >= dists.size()) {
@@ -16,13 +14,13 @@ void node::add_edge(int other, int dist) {
     dists[other] = dist;
 }
 
-void node::iter_edges(function<void(int, int)> step) const {
+void node::iter_edges(std::function<void(int, int)> step) const {
     ranges::for_each(dists | ranges::views::enumerate, [*this, &step](auto const p) { step(p.first, p.second); });
 }
 
 graph::graph() : nodes{} {}
 
-int graph::get_node(const string &name) {
+int graph::get_node(const std::string &name) {
     auto it = ranges::find_if(nodes, [&name](auto const &n) { return n.name == name; });
 
     if (it == nodes.end()) {
@@ -34,38 +32,39 @@ int graph::get_node(const string &name) {
     }
 }
 
-void graph::add_edge(const string &from, const string &to, int dist) {
+void graph::add_edge(const std::string &from, const std::string &to, int dist) {
     auto fix = get_node(from);
     auto tix = get_node(to);
     nodes[fix].add_edge(tix, dist);
     nodes[tix].add_edge(fix, dist);
 }
 
-void graph::parse_edge(const string &line) {
-    vector<string> words = line | ranges::views::tokenize(regex{"[\\w]+"}) | ranges::to<vector<string>>();
+void graph::parse_edge(const std::string &line) {
+    std::vector<std::string> words =
+        line | ranges::views::tokenize(std::regex{"[\\w]+"}) | ranges::to<std::vector<std::string>>();
 
     // the last word is at 3 because the regex doesn't match `=`
     add_edge(words[0], words[2], stoi(words[3]));
 }
 
-int graph::dist_by(function<bool(int, int)> cmp) {
-    vector<int> dists{};
+int graph::dist_by(std::function<bool(int, int)> cmp) {
+    std::vector<int> dists{};
 
     struct path {
         int ix;
-        shared_ptr<path> parent;
+        std::shared_ptr<path> parent;
         int distance;
 
-        path(int ix, shared_ptr<path> parent, int distance) : ix{ix}, parent{parent}, distance{distance} {}
+        path(int ix, std::shared_ptr<path> parent, int distance) : ix{ix}, parent{parent}, distance{distance} {}
 
         bool seen(int other) {
             return other == ix || (parent && parent->seen(other));
         }
     };
 
-    deque<shared_ptr<path>> work{};
+    std::deque<std::shared_ptr<path>> work{};
 
-    auto push_work = [*this, &work](int ix, shared_ptr<path> parent, int distance) {
+    auto push_work = [*this, &work](int ix, std::shared_ptr<path> parent, int distance) {
         if (parent) {
             distance += parent->distance;
         }

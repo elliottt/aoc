@@ -3,9 +3,6 @@
 #include <fmt/format.h>
 #include <range/v3/all.hpp>
 
-using namespace std;
-using namespace ranges;
-
 int sigma_1(int n) {
     auto acc = n;
 

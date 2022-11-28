@@ -1,9 +1,7 @@
 #include <fmt/core.h>
 #include <fstream>
 
-#include "2015/day-7/wires.h"
-
-using namespace std;
+#include "2015/day-07/wires.h"
 
 int main(int argc, char **argv) {
     if (argc != 2) {
@@ -13,10 +11,10 @@ int main(int argc, char **argv) {
     wires::wires state{};
 
     {
-        ifstream in{argv[1]};
-        in >> noskipws;
+        std::ifstream in{argv[1]};
+        in >> std::noskipws;
         while (!in.eof()) {
-            string line;
+            std::string line;
             getline(in, line);
             if (line.empty()) {
                 break;

@@ -9,15 +9,14 @@
 #include <set>
 #include <vector>
 
-using namespace ranges;
-using namespace std;
+namespace views = ranges::views;
 
 struct node {
     int steps{0};
-    string current;
-    shared_ptr<node> parent{nullptr};
+    std::string current;
+    std::shared_ptr<node> parent{nullptr};
 
-    node(int steps, string &&current, const shared_ptr<node> &parent)
+    node(int steps, std::string &&current, const std::shared_ptr<node> &parent)
         : steps{steps}, current{std::move(current)}, parent{parent} {}
 };
 
@@ -26,14 +25,14 @@ int main(int argc, char **argv) {
         return 1;
     }
 
-    vector<pair<string, string>> rev_steps{};
-    string input;
+    std::vector<std::pair<std::string, std::string>> rev_steps{};
+    std::string input;
 
-    regex match_chunk{"[[:upper:]][[:lower:]]*"};
+    std::regex match_chunk{"[[:upper:]][[:lower:]]*"};
 
     {
-        ifstream in{argv[1]};
-        auto lines = getlines(in) | to<vector>();
+        std::ifstream in{argv[1]};
+        auto lines = ranges::getlines(in) | ranges::to<std::vector>();
 
         for (auto &line : lines | views::delimit("")) {
             auto pos = line.find(" => ");
@@ -42,12 +41,12 @@ int main(int argc, char **argv) {
             rev_steps.emplace_back(rhs, key);
         }
 
-        actions::sort(rev_steps, ranges::greater{}, [](auto &p) { return p.first.size(); });
+        ranges::actions::sort(rev_steps, ranges::greater{}, [](auto &p) { return p.first.size(); });
 
         input = lines.back();
     }
 
-    deque<shared_ptr<node>> work{};
+    std::deque<std::shared_ptr<node>> work{};
     {
         auto root = make_shared<node>(0, std::move(input), nullptr);
         work.emplace_back(std::move(root));
@@ -64,7 +63,7 @@ int main(int argc, char **argv) {
 
         for (auto &rule : rev_steps) {
             auto pos = head->current.find(rule.first);
-            if (pos != string::npos) {
+            if (pos != std::string::npos) {
                 auto current = head->current;
                 current.replace(pos, rule.first.size(), rule.second);
                 auto child = make_shared<node>(head->steps + 1, std::move(current), head);

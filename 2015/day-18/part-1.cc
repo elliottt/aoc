@@ -5,8 +5,7 @@
 
 #include "life.h"
 
-using namespace std;
-using namespace ranges;
+namespace views = ranges::views;
 
 int main(int argc, char **argv) {
     if (argc != 2) {
@@ -15,8 +14,8 @@ int main(int argc, char **argv) {
 
     aoc::life board{100, 100};
     {
-        ifstream in{argv[1]};
-        for (auto [y, line] : getlines(in) | views::enumerate) {
+        std::ifstream in{argv[1]};
+        for (auto [y, line] : ranges::getlines(in) | views::enumerate) {
             for (auto [x, c] : line | views::enumerate) {
                 if (c == '#') {
                     board.set(x, y, true);

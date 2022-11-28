@@ -2,15 +2,13 @@
 #include <optional>
 #include <range/v3/all.hpp>
 
-#include "2015/day-7/wires.h"
-
-using namespace std;
+#include "2015/day-07/wires.h"
 
 namespace wires {
 
 namespace {
 
-operand parse_operand(wires &state, const string &val) {
+operand parse_operand(wires &state, const std::string &val) {
     if (ranges::all_of(val, [](auto c) { return isdigit(c); })) {
         return operand::literal(stoi(val));
     } else {
@@ -19,20 +17,20 @@ operand parse_operand(wires &state, const string &val) {
 }
 
 struct binop {
-    string l;
-    string r;
+    std::string l;
+    std::string r;
 };
 
-optional<binop> parse_binop(const string &command, const string &&op) {
+std::optional<binop> parse_binop(const std::string &command, const std::string &&op) {
     auto start = command.find(op);
-    if (start == string::npos) {
+    if (start == std::string::npos) {
         return std::nullopt;
     }
 
     return binop{command.substr(0, start - 1), command.substr(start + 1 + op.size())};
 }
 
-optional<string> parse_prefix(const string &command, const string &&op) {
+std::optional<std::string> parse_prefix(const std::string &command, const std::string &&op) {
     if (command.substr(0, op.size()) != op) {
         return std::nullopt;
     }
@@ -56,7 +54,7 @@ int wires::get_value(int ix) {
     return val;
 }
 
-int wires::lookup(const string &name) {
+int wires::lookup(const std::string &name) {
     auto pos = indices.find(name);
     if (pos != indices.end()) {
         return pos->second;
@@ -68,9 +66,9 @@ int wires::lookup(const string &name) {
     }
 }
 
-void wires::extend(const string &line) {
+void wires::extend(const std::string &line) {
     auto pos = line.find("->");
-    if (pos == string::npos) {
+    if (pos == std::string::npos) {
         return;
     }
 

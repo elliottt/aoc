@@ -5,8 +5,7 @@
 
 #include "life.h"
 
-using namespace std;
-using namespace ranges;
+namespace views = ranges::views;
 
 namespace aoc {
 
