@@ -74,3 +74,53 @@ def aoc_solutions(name, input=None, solutions=[]):
         name=name,
         solutions=sols,
     )
+
+def _solution_test_impl(ctx):
+
+    ctx.actions.write(
+        ctx.outputs.executable,
+        content = """
+        output="$({solution} | grep "{prefix}" | sed 's/{prefix}//')"
+        if [[ "$output" != "{expected}" ]]; then
+          echo "expected {expected}, but found $output"
+          exit 1
+        fi
+        """.format(
+            solution = ctx.executable.solution.short_path,
+            prefix = ctx.attr.prefix,
+            expected = ctx.attr.expected,
+        ),
+        is_executable = True,
+    )
+
+    return [DefaultInfo(runfiles = ctx.attr.solution.default_runfiles)]
+
+
+_solution_test = rule(
+    test = True,
+    implementation = _solution_test_impl,
+    attrs = {
+        "solution": attr.label(executable = True, cfg = "exec"),
+        "prefix": attr.string(),
+        "expected": attr.string(),
+    }
+)
+
+def aoc_test(name, solution, result, expected, input=None):
+    if input == None:
+        sol = solution
+    else:
+        sol = "{}-{}".format(name, solution)
+        aoc_solution(
+            name = sol,
+            input = input,
+            binary = solution,
+        )
+
+    _solution_test(
+        name = name,
+        solution = sol,
+        prefix = "{}: ".format(result),
+        expected = expected,
+    )
+
