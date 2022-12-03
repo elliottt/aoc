@@ -1,4 +1,4 @@
-load("//rules:solution.bzl", "aoc_solutions", "aoc_test")
+load("//rules:solution.bzl", "aoc_solutions", "aoc_tests")
 load("//rules:config.bzl", "COPTS")
 
 aoc_solutions(
@@ -7,20 +7,14 @@ aoc_solutions(
     solutions = [ "solution" ],
 )
 
-aoc_test(
-    name = "test1",
+aoc_tests(
+    name = "tests",
     input = "test.txt",
     solution = "solution",
-    result = "part 1",
-    expected = "24000",
-)
-
-aoc_test(
-    name = "test2",
-    input = "test.txt",
-    solution = "solution",
-    result = "part 2",
-    expected = "45000",
+    spec = {
+        "part 1": "24000",
+        "part 2": "45000",
+    }
 )
 
 cc_binary(

@@ -25,7 +25,7 @@ fi
 mkdir -p "${solution}"
 
 cat << EOF > "${solution}/BUILD"
-load("//rules:solution.bzl", "aoc_solutions", "aoc_test")
+load("//rules:solution.bzl", "aoc_solutions", "aoc_tests")
 load("//rules:config.bzl", "COPTS")
 
 aoc_solutions(
@@ -34,20 +34,12 @@ aoc_solutions(
     solutions = [ "solution" ],
 )
 
-# aoc_test(
-#     name = "test1",
-#     input = "test.txt",
-#     solution = "solution",
-#     result = "part 1",
-#     expected = "",
-# )
-#
-# aoc_test(
+# aoc_tests(
 #     name = "test2",
 #     input = "test.txt",
 #     solution = "solution",
-#     result = "part 2",
-#     expected = "",
+#     spec = {
+#     },
 # )
 
 cc_binary(

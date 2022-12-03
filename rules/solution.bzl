@@ -124,3 +124,22 @@ def aoc_test(name, solution, result, expected, input=None):
         expected = expected,
     )
 
+def aoc_tests(name, solution, spec, input=None):
+    if input == None:
+        sol = solution
+    else:
+        sol = "{}-{}".format(name, solution)
+        aoc_solution(
+            name = sol,
+            input = input,
+            binary = solution,
+        )
+
+    for i, k in enumerate(spec):
+        i = i + 1
+        aoc_test(
+            name = "{}-{}".format(name, i),
+            solution = sol,
+            result = k,
+            expected = spec[k],
+        )
