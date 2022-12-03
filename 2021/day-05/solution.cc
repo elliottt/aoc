@@ -79,7 +79,6 @@ struct line {
                 }
 
                 p += s;
-
             }
         }
     }

@@ -19,8 +19,8 @@ int difference(const std::vector<int> &cells) {
 }
 
 int divisors(const std::vector<int> &cells) {
-    for (auto [i,a] : views::enumerate(cells)) {
-        for (auto [j,b] : views::enumerate(cells)) {
+    for (auto [i, a] : views::enumerate(cells)) {
+        for (auto [j, b] : views::enumerate(cells)) {
             if (i == j) {
                 continue;
             }

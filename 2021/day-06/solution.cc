@@ -10,23 +10,23 @@ namespace views = ranges::views;
 
 uint64_t population_after(std::vector<uint8_t> lanternfish, int days) {
     std::vector<uint64_t> weekly(7, 0);
-    std::vector<uint64_t> future(days+10, 0);
+    std::vector<uint64_t> future(days + 10, 0);
 
     // seed the future additions
     for (auto i : lanternfish) {
-        weekly[i+1] += 1;
+        weekly[i + 1] += 1;
     }
 
     // iterate over days
     uint64_t population = lanternfish.size();
-    for (auto [i, d] : future | views::enumerate | views::take(days+1)) {
+    for (auto [i, d] : future | views::enumerate | views::take(days + 1)) {
         auto day = i % 7;
 
         // these new fish would reproduce today
         weekly[day] += future[i];
 
         // these will spawn new fish in 8 days
-        future[i+9] += weekly[day];
+        future[i + 9] += weekly[day];
 
         population += weekly[day];
     }

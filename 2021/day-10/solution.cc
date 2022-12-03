@@ -1,9 +1,9 @@
 #include <fmt/format.h>
 #include <fstream>
+#include <optional>
 #include <range/v3/all.hpp>
 #include <string>
 #include <vector>
-#include <optional>
 
 namespace views = ranges::views;
 
@@ -82,18 +82,18 @@ int main(int argc, char **argv) {
         }
 
         switch (lines[ix][res.error_pos]) {
-            case ')':
-                score += 3;
-                break;
-            case ']':
-                score += 57;
-                break;
-            case '}':
-                score += 1197;
-                break;
-            case '>':
-                score += 25137;
-                break;
+        case ')':
+            score += 3;
+            break;
+        case ']':
+            score += 57;
+            break;
+        case '}':
+            score += 1197;
+            break;
+        case '>':
+            score += 25137;
+            break;
         }
     }
 
@@ -109,18 +109,18 @@ int main(int argc, char **argv) {
         for (auto c : views::reverse(res.closing)) {
             score = score * 5;
             switch (c) {
-                case ')':
-                    score += 1;
-                    break;
-                case ']':
-                    score += 2;
-                    break;
-                case '}':
-                    score += 3;
-                    break;
-                case '>':
-                    score += 4;
-                    break;
+            case ')':
+                score += 1;
+                break;
+            case ']':
+                score += 2;
+                break;
+            case '}':
+                score += 3;
+                break;
+            case '>':
+                score += 4;
+                break;
             }
         }
 
