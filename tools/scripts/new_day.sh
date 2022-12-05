@@ -35,7 +35,7 @@ aoc_solutions(
 )
 
 # aoc_tests(
-#     name = "test2",
+#     name = "test",
 #     input = "test.txt",
 #     solution = "solution",
 #     spec = {
