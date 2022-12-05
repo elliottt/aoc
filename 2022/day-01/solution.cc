@@ -18,7 +18,7 @@ int main(int argc, char **argv) {
             ranges::getlines(in) | views::split("") | views::transform([](auto &&rng) {
                 return ranges::accumulate(rng | views::transform([](std::string &str) { return std::stoi(str); }), 0);
             }) |
-            ranges::to<std::vector> | ranges::actions::sort | ranges::actions::reverse;
+            ranges::to<std::vector> | ranges::actions::sort(ranges::greater{});
     }
 
     fmt::print("part 1: {}\n", totals[0]);
