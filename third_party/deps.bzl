@@ -1,11 +1,13 @@
 load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 
+HERMETIC_CC_TOOLCHAIN_VERSION = "v2.0.0-rc2"
+
 def deps():
     http_archive(
         name = "range-v3",
-        urls = ["https://github.com/ericniebler/range-v3/archive/0.11.0.tar.gz"],
-        sha256 = "376376615dbba43d3bef75aa590931431ecb49eb36d07bb726a19f680c75e20c",
-        strip_prefix = "range-v3-0.11.0",
+        urls = ["https://github.com/ericniebler/range-v3/archive/0.12.0.tar.gz"],
+        sha256 = "015adb2300a98edfceaf0725beec3337f542af4915cec4d0b89fa0886f4ba9cb",
+        strip_prefix = "range-v3-0.12.0",
     )
 
     http_archive(
@@ -44,4 +46,13 @@ def deps():
         sha256 = "520907d368d32830771d1ed606821aa8a7501cbf7929b433c5ac0065027fa6e4",
         strip_prefix = "json-db78ac1d7716f56fc9f1b030b715f872f93964e4",
         build_file = "//third_party:json.BUILD",
+    )
+
+    http_archive(
+        name = "hermetic_cc_toolchain",
+        sha256 = "40dff82816735e631e8bd51ede3af1c4ed1ad4646928ffb6a0e53e228e55738c",
+        urls = [
+            "https://mirror.bazel.build/github.com/uber/hermetic_cc_toolchain/releases/download/{0}/hermetic_cc_toolchain-{0}.tar.gz".format(HERMETIC_CC_TOOLCHAIN_VERSION),
+            "https://github.com/uber/hermetic_cc_toolchain/releases/download/{0}/hermetic_cc_toolchain-{0}.tar.gz".format(HERMETIC_CC_TOOLCHAIN_VERSION),
+        ],
     )
