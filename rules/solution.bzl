@@ -80,9 +80,14 @@ def _solution_test_impl(ctx):
     ctx.actions.write(
         ctx.outputs.executable,
         content = """
-        output="$({solution} | grep "{prefix}" | sed 's/{prefix}//')"
-        if [[ "$output" != "{expected}" ]]; then
-          echo "expected {expected}, but found $output"
+        output="$(mktemp)"
+        trap "rm $output" EXIT
+        {solution} > "$output"
+        solution="$(grep "{prefix}" "$output" | sed 's/{prefix}//')"
+        if [[ "$solution" != "{expected}" ]]; then
+          cat "$output"
+          echo "==="
+          echo "expected {expected}, but found $solution"
           exit 1
         fi
         """.format(
