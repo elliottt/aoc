@@ -140,11 +140,20 @@ def aoc_tests(name, solution, spec, input=None):
             binary = solution,
         )
 
+    tests = []
+
     for i, k in enumerate(spec):
         i = i + 1
+        test = "{}-{}".format(name, i)
+        tests.append(test)
         aoc_test(
-            name = "{}-{}".format(name, i),
+            name = test,
             solution = sol,
             result = k,
             expected = spec[k],
         )
+
+    native.test_suite(
+        name = name,
+        tests = tests,
+    )
