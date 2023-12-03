@@ -76,7 +76,7 @@ int score(const Grid &grid, size_t x, size_t y) {
     auto height_x = [&row](int x) { return row[x].height; };
 
     int left = 0;
-    for (int i = x-1; i >= 0; --i) {
+    for (int i = x - 1; i >= 0; --i) {
         left++;
         if (height_x(i) >= cell.height) {
             break;
@@ -84,7 +84,7 @@ int score(const Grid &grid, size_t x, size_t y) {
     }
 
     int right = 0;
-    for (int i = x+1; i < width; ++i) {
+    for (int i = x + 1; i < width; ++i) {
         right++;
         if (height_x(i) >= cell.height) {
             break;
@@ -93,7 +93,7 @@ int score(const Grid &grid, size_t x, size_t y) {
 
     auto height_y = [&grid, x](int y) { return index(grid, x, y).height; };
     int top = 0;
-    for (int i = y-1; i >= 0; --i) {
+    for (int i = y - 1; i >= 0; --i) {
         top++;
         if (height_y(i) >= cell.height) {
             break;
@@ -101,7 +101,7 @@ int score(const Grid &grid, size_t x, size_t y) {
     }
 
     int bottom = 0;
-    for (int i = y+1; i < height; ++i) {
+    for (int i = y + 1; i < height; ++i) {
         bottom++;
         if (height_y(i) >= cell.height) {
             break;
