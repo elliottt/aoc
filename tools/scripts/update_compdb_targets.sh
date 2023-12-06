@@ -12,6 +12,7 @@ TARGETS = [
 EOF
 
 bazelisk query 'kind("cc_(binary|library|test)", //...)' | \
+  grep -v '^//.direnv' | \
   sort | \
   while read target; do
     echo "  '${target}'," >> "$tmpfile"

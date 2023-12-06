@@ -28,9 +28,9 @@ def deps():
 
     http_archive(
         name = "com_github_nelhage_rules_boost",
-        urls = ["https://github.com/nelhage/rules_boost/archive/640eb2e2fd6b7bda2187af12b34df1ed01785789.zip"],
-        sha256 = "335847417ad4ddae0831ec0e6e655d3e32915e9dca2af0d89295ebeefd6a9abe",
-        strip_prefix = "rules_boost-640eb2e2fd6b7bda2187af12b34df1ed01785789",
+        urls = ["https://github.com/nelhage/rules_boost/archive/96e9b631f104b43a53c21c87b01ac538ad6f3b48.tar.gz"],
+        sha256 = "5ea00abc70cdf396a23fb53201db19ebce2837d28887a08544429d27783309ed",
+        strip_prefix = "rules_boost-96e9b631f104b43a53c21c87b01ac538ad6f3b48",
     )
 
     http_archive(
