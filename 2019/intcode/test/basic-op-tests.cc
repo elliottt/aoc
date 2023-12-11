@@ -1,4 +1,4 @@
-#include "doctest.h"
+#include "doctest/doctest.h"
 
 #include "2019/intcode/intcode.h"
 
