@@ -5,6 +5,8 @@
 #include <string>
 #include <vector>
 
+#include "common/interval.h"
+
 namespace views = ranges::views;
 
 std::pair<int64_t, size_t> parse_int(std::string_view str) {
@@ -13,67 +15,7 @@ std::pair<int64_t, size_t> parse_int(std::string_view str) {
     return {n, std::distance(str.begin(), res)};
 }
 
-struct Range {
-    int64_t min = 0;
-    int64_t max = 0;
-
-    Range() = default;
-    Range(int64_t min, int64_t max) : min{min}, max{max} {}
-
-    int64_t first() const {
-        return this->min;
-    }
-
-    int64_t last() const {
-        return this->max - 1;
-    }
-
-    bool is_empty() const {
-        return this->min >= this->max;
-    }
-
-    bool contains(int64_t val) const {
-        return val >= this->min && val < this->max;
-    }
-
-    bool contains(const Range &other) const {
-        return this->contains(other.min) && other.max <= this->max;
-    }
-
-    bool overlaps(const Range &other) const {
-        return this->contains(other.min) || other.contains(this->min);
-    }
-
-    /// Return the range that these two have in common.
-    Range make_union(const Range &other) const {
-        Range res{};
-
-        res.min = std::max(this->min, other.min);
-        res.max = std::min(this->max, other.max);
-
-        return res;
-    }
-
-    /// Assuming that the two ranges overlap, return the result of removing the given range.
-    std::tuple<Range, Range> subtract(const Range &other) const {
-        Range left{this->min, other.min};
-        Range right{other.max, this->max};
-
-        return {left, right};
-    }
-
-    operator bool() const {
-        return !this->is_empty();
-    }
-
-    Range operator+(int64_t val) const {
-        return Range{this->min + val, this->max + val};
-    }
-
-    Range operator-(int64_t val) const {
-        return Range{this->min - val, this->max - val};
-    }
-};
+using Range = aoc::Interval<int64_t>;
 
 struct Mapping {
     Range range;
@@ -118,14 +60,14 @@ struct Map {
 
             bool matched = false;
             for (auto &map : this->mappings) {
-                if (auto overlap = range.make_union(map.range)) {
+                if (auto overlap = range.merge(map.range)) {
                     results.push_back(std::min(overlap.first() + map.diff, overlap.last() + map.diff));
 
                     auto [left, right] = range.subtract(map.range);
-                    if (!left.is_empty()) {
+                    if (!left.empty()) {
                         work.push_back(left);
                     }
-                    if (!right.is_empty()) {
+                    if (!right.empty()) {
                         work.push_back(right);
                     }
 
@@ -169,18 +111,18 @@ struct Map {
             Range adjusted = next.range + next.diff;
 
             for (auto [ix, to] : views::enumerate(other.mappings)) {
-                if (auto overlap = adjusted.make_union(to.range)) {
+                if (auto overlap = adjusted.merge(to.range)) {
                     overlapped[ix] = true;
 
                     add(overlap - next.diff, next.diff + to.diff);
 
                     auto [below, above] = adjusted.subtract(overlap);
 
-                    if (!below.is_empty()) {
+                    if (!below.empty()) {
                         queue(below - next.diff, next.diff);
                     }
 
-                    if (!above.is_empty()) {
+                    if (!above.empty()) {
                         queue(above - next.diff, next.diff);
                     }
 
