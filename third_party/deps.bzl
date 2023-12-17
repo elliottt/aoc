@@ -1,6 +1,6 @@
 load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 
-HERMETIC_CC_TOOLCHAIN_VERSION = "v2.0.0-rc2"
+HERMETIC_CC_TOOLCHAIN_VERSION = "v2.1.3"
 
 def deps():
     http_archive(
@@ -49,7 +49,7 @@ def deps():
 
     http_archive(
         name = "hermetic_cc_toolchain",
-        sha256 = "40dff82816735e631e8bd51ede3af1c4ed1ad4646928ffb6a0e53e228e55738c",
+        sha256 = "a5caccbf6d86d4f60afd45b541a05ca4cc3f5f523aec7d3f7711e584600fb075",
         urls = [
             "https://mirror.bazel.build/github.com/uber/hermetic_cc_toolchain/releases/download/{0}/hermetic_cc_toolchain-{0}.tar.gz".format(HERMETIC_CC_TOOLCHAIN_VERSION),
             "https://github.com/uber/hermetic_cc_toolchain/releases/download/{0}/hermetic_cc_toolchain-{0}.tar.gz".format(HERMETIC_CC_TOOLCHAIN_VERSION),
