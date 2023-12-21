@@ -47,6 +47,7 @@ TARGETS = [
   '//2017/day-02:solution',
   '//2017:solution-03',
   '//2018/day-01:solution',
+  '//2018/day-02:solution',
   '//2019/day-01:part-1',
   '//2019/day-01:part-2',
   '//2019/day-02:part-1',
