@@ -68,3 +68,5 @@ int main(int argc, char **argv) {
     return 0;
 }
 EOF
+
+"${root}/tools/scripts/build_compdb.sh"
