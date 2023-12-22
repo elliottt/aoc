@@ -117,6 +117,7 @@ TARGETS = [
   '//2023/day-04:solution',
   '//2023/day-05:solution',
   '//2023/day-06:solution',
+  '//2023/day-07:solution',
   '//common/test:test_math',
   '//common:common',
 ]
