@@ -10,5 +10,6 @@ cc_test(
     srcs = ["test_math.cc"],
     deps = ["//common", "@fmt", "@doctest//doctest", "@doctest//doctest:main"],
     copts = COPTS,
+    linkstatic = True,
     visibility = ["//visibility:public"],
 )

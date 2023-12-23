@@ -1,9 +1,7 @@
-load("@com_grail_bazel_compdb//:aspects.bzl", "compilation_database")
+load("@hedron_compile_commands//:refresh_compile_commands.bzl", "refresh_compile_commands")
 load("//rules:compdb_targets.bzl", "TARGETS")
 
-compilation_database(
+refresh_compile_commands(
     name = "aoc_compdb",
     targets = TARGETS,
-    visibility = ["//visibility:public"],
-    testonly = True,
 )

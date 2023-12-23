@@ -12,3 +12,6 @@ zig_toolchains()
 register_toolchains(
     "@zig_sdk//toolchain:linux_amd64_gnu.2.28"
 )
+
+load("@hedron_compile_commands//:workspace_setup.bzl", "hedron_compile_commands_setup")
+hedron_compile_commands_setup()

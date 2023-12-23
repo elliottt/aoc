@@ -33,13 +33,6 @@ def deps():
     )
 
     http_archive(
-        name = "com_grail_bazel_compdb",
-        urls = ["https://github.com/grailbio/bazel-compilation-database/archive/0ae6349c52700f060c9a87c5ed2b04b75f94a26f.zip"],
-        sha256 = "40ad122fedbf2d8b23e70e16b5f49c1a316f02db3ed29ce1af8650dad6ccc1a9",
-        strip_prefix = "bazel-compilation-database-0ae6349c52700f060c9a87c5ed2b04b75f94a26f",
-    )
-
-    http_archive(
         name = "json",
         urls = ["https://github.com/nlohmann/json/archive/db78ac1d7716f56fc9f1b030b715f872f93964e4.zip"],
         sha256 = "520907d368d32830771d1ed606821aa8a7501cbf7929b433c5ac0065027fa6e4",
@@ -54,4 +47,11 @@ def deps():
             "https://mirror.bazel.build/github.com/uber/hermetic_cc_toolchain/releases/download/{0}/hermetic_cc_toolchain-{0}.tar.gz".format(HERMETIC_CC_TOOLCHAIN_VERSION),
             "https://github.com/uber/hermetic_cc_toolchain/releases/download/{0}/hermetic_cc_toolchain-{0}.tar.gz".format(HERMETIC_CC_TOOLCHAIN_VERSION),
         ],
+    )
+
+    http_archive(
+        name = "hedron_compile_commands",
+        urls = ["https://github.com/hedronvision/bazel-compile-commands-extractor/archive/daae6f40adfa5fdb7c89684cbe4d88b691c63b2d.tar.gz"],
+        strip_prefix = "bazel-compile-commands-extractor-daae6f40adfa5fdb7c89684cbe4d88b691c63b2d",
+        sha256 = "43451a32bf271e7ba4635a07f7996d535501f066c0fe8feab04fb0c91dd5986e",
     )
