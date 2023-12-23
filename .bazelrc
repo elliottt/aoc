@@ -1,4 +1,3 @@
-build --incompatible_enable_cc_toolchain_resolution
 build --action_env BAZEL_DO_NOT_DETECT_CPP_TOOLCHAIN=1
 
 # https://github.com/bazelbuild/bazel/issues/14294

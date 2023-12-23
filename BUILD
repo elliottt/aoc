@@ -4,4 +4,6 @@ load("//rules:compdb_targets.bzl", "TARGETS")
 refresh_compile_commands(
     name = "aoc_compdb",
     targets = TARGETS,
+    exclude_external_sources = True,
+    exclude_headers = "external",
 )

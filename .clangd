@@ -1,0 +1,4 @@
+CompileFlags:
+  Add:
+    - "-Iexternal/zig_sdk/lib/include"
+    - "-Iexternal/zig_sdk/lib/libcxx/include"
