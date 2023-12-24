@@ -1,26 +1,14 @@
-
-#include <boost/algorithm/hex.hpp>
-#include <boost/uuid/detail/md5.hpp>
 #include <fmt/core.h>
 #include <iterator>
 #include <range/v3/all.hpp>
+#include "md5.h"
 
 namespace views = ranges::views;
 
 std::string md5(std::string input) {
-    using boost::uuids::detail::md5;
-
-    md5 hash;
-    hash.process_bytes(input.data(), input.size());
-
-    md5::digest_type digest;
-    hash.get_digest(digest);
-
-    std::string result;
-    const auto intDigest = reinterpret_cast<const int *>(&digest);
-    boost::algorithm::hex(intDigest, intDigest + (sizeof(md5::digest_type) / sizeof(int)), back_inserter(result));
-
-    return result;
+    MD5 hash;
+    hash.add(input.data(), input.size());
+    return hash.getHash();
 }
 
 int leading_zeros(std::string digest) {

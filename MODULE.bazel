@@ -11,3 +11,27 @@ use_repo(toolchains, "zig_sdk")
 register_toolchains(
     "@zig_sdk//toolchain:linux_amd64_gnu.2.31",
 )
+
+http_archive = use_repo_rule("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
+
+http_archive(
+    name = "range-v3",
+    urls = ["https://github.com/ericniebler/range-v3/archive/0.12.0.tar.gz"],
+    sha256 = "015adb2300a98edfceaf0725beec3337f542af4915cec4d0b89fa0886f4ba9cb",
+    strip_prefix = "range-v3-0.12.0",
+)
+
+http_archive(
+    name = "hedron_compile_commands",
+    urls = ["https://github.com/hedronvision/bazel-compile-commands-extractor/archive/eac41eefb5c19d9a2d2bcdd60d6989660288333d.tar.gz"],
+    strip_prefix = "bazel-compile-commands-extractor-eac41eefb5c19d9a2d2bcdd60d6989660288333d",
+    sha256 = "716c149b5a2c4cdf8a80ecf6d59950b93366b2351ef868fb600c1d1963704b07",
+)
+
+http_archive(
+    name = "hash_library",
+    urls = ["https://github.com/stbrumme/hash-library/archive/d389d18112bcf7e4786ec5e8723f3658a7f433d7.tar.gz"],
+    strip_prefix = "hash-library-d389d18112bcf7e4786ec5e8723f3658a7f433d7",
+    build_file = "//third_party:hash-library.BUILD",
+    integrity = "sha256-ShvnF+Wxg2yKSvG1jeVNr8afD4+f/gH6lPxrkKp0rhE=",
+)
