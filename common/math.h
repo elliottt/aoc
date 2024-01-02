@@ -134,6 +134,25 @@ template <typename T, int D> vec<T, D> vec<T, D>::operator*(const T val) const {
     return vec{elems * val};
 }
 
+template <typename T> T gcd(T a, T b) {
+    auto min = std::min(a, b);
+    auto max = std::max(a, b);
+
+    while (min > 0) {
+        max %= min;
+
+        a = std::min(max, min);
+        max = std::max(min, max);
+        min = a;
+    }
+
+    return max;
+}
+
+template <typename T> T lcm(T a, T b) {
+    return (a * b) / gcd(a, b);
+}
+
 } // namespace aoc
 
 #endif
