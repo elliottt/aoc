@@ -1,4 +1,12 @@
 CompileFlags:
   Add:
-    - "-Iexternal/zig_sdk/lib/include"
-    - "-Iexternal/zig_sdk/lib/libcxx/include"
+    - "-D_LIBCPP_DISABLE_AVAILABILITY"
+    - "-D_LIBCPP_PROVIDES_DEFAULT_RUNE_TABLE"
+    - "-Iexternal/hermetic_cc_toolchain~2.1.3~toolchains~zig_sdk/lib/libcxx/include"
+    - "-Iexternal/hermetic_cc_toolchain~2.1.3~toolchains~zig_sdk/lib/libcxxabi/include"
+    - "-Iexternal/hermetic_cc_toolchain~2.1.3~toolchains~zig_sdk/lib/libunwind/include"
+    - "-Iexternal/hermetic_cc_toolchain~2.1.3~toolchains~zig_sdk/lib/include"
+    - "-Iexternal/hermetic_cc_toolchain~2.1.3~toolchains~zig_sdk/lib/libc/include/x86_64-linux-musl"
+    - "-Iexternal/hermetic_cc_toolchain~2.1.3~toolchains~zig_sdk/lib/libc/include/x86_64-linux-gnu"
+    - "-Iexternal/hermetic_cc_toolchain~2.1.3~toolchains~zig_sdk/lib/libc/include/x86_64-linux-any"
+    - "-Iexternal/hermetic_cc_toolchain~2.1.3~toolchains~zig_sdk/lib/libc/include/generic-musl"
