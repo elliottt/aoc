@@ -20,6 +20,7 @@
           buildInputs = [
             clang
             bazelisk
+            lldb
           ];
         };
       }
