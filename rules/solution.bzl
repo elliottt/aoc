@@ -82,10 +82,9 @@ def _solution_test_impl(ctx):
         content = """
         output="$(mktemp)"
         trap "rm $output" EXIT
-        {solution} > "$output"
+        "{solution}" | tee "$output"
         solution="$(grep "{prefix}" "$output" | sed 's/{prefix}//')"
         if [[ "$solution" != "{expected}" ]]; then
-          cat "$output"
           echo "==="
           echo "expected {expected}, but found $solution"
           exit 1

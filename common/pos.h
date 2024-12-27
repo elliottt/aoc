@@ -9,10 +9,89 @@
 #include <range/v3/view/remove.hpp>
 #include <range/v3/view/single.hpp>
 #include <range/v3/view/transform.hpp>
+#include <tuple>
 
 namespace aoc {
 
+template <typename T> struct direction final {
+    T dx;
+    T dy;
+
+    // Directions, usable as bit flags.
+    enum flag : uint8_t {
+        North = 0b00000001,
+        NorthEast = 0b00000010,
+        East = 0b00000100,
+        SouthEast = 0b00001000,
+        South = 0b00010000,
+        SouthWest = 0b00100000,
+        West = 0b01000000,
+        NorthWest = 0b10000000,
+    };
+
+    static direction from_flag(flag n) {
+        switch (n) {
+        case flag::North:
+            return north();
+        case flag::NorthEast:
+            return north_east();
+        case flag::East:
+            return east();
+        case flag::SouthEast:
+            return south_east();
+        case flag::South:
+            return south();
+        case flag::SouthWest:
+            return south_west();
+        case flag::West:
+            return west();
+        case flag::NorthWest:
+            return north_west();
+        }
+    }
+
+    static constexpr direction north() {
+        return {0, -1};
+    }
+
+    static constexpr direction north_east() {
+        return {1, -1};
+    }
+
+    static constexpr direction east() {
+        return {1, 0};
+    }
+
+    static constexpr direction south_east() {
+        return {1, 1};
+    }
+
+    static constexpr direction south() {
+        return {0, 1};
+    }
+
+    static constexpr direction south_west() {
+        return {-1, 1};
+    }
+
+    static constexpr direction west() {
+        return {-1, 0};
+    }
+
+    static constexpr direction north_west() {
+        return {-1, -1};
+    }
+
+    std::strong_ordering operator<=>(const direction &other) const {
+        return std::tie(this->dx, this->dy) <=> std::tie(other.dx, other.dy);
+    }
+};
+
+struct pos_hash;
+
 struct pos final {
+    using hash = pos_hash;
+
     int x = 0;
     int y = 0;
 
@@ -46,6 +125,21 @@ struct pos final {
 
     pos west() const {
         return pos{this->x - 1, this->y};
+    }
+
+    pos move_by(const direction<int> &d) const {
+        return {this->x + d.dx, this->y + d.dy};
+    }
+
+    std::strong_ordering operator<=>(const pos &other) const {
+        return std::tie(this->x, this->y) <=> std::tie(other.x, other.y);
+    }
+};
+
+struct pos_hash {
+    size_t operator()(const pos &pos) const {
+        std::hash<int> hash;
+        return hash(pos.x) ^ hash(pos.y);
     }
 };
 
