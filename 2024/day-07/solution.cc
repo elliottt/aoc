@@ -31,7 +31,7 @@ struct Problem {
 
     bool valid(bool concatenation = false) const {
         std::vector<int64_t> current{this->target};
-        std::vector<int64_t> next{this->target};
+        std::vector<int64_t> next{};
 
         for (auto n : this->operands | views::reverse) {
             next.clear();
